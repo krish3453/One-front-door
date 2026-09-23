@@ -3,7 +3,7 @@ import {
   START,
   StateGraph,
 } from "@langchain/langgraph";
-
+import { analyzeNode } from "./node/analyze.node.js";
 import { AgentState } from "./state.js";
 import { classifyNode } from "./node/classify.node.js";
 import { routeByAgent } from "./node/route.node.js";
@@ -13,12 +13,14 @@ import { campusNode } from "../campus/campus.node.js";
 import { generalNode } from "../general/general.node.js";
 
 const workflow = new StateGraph(AgentState)
+  .addNode("analyze", analyzeNode)
   .addNode("classify", classifyNode)
   .addNode("academic", academicNode)
   .addNode("campus", campusNode)
   .addNode("general", generalNode)
 
-  .addEdge(START, "classify")
+  .addEdge(START, "analyze")
+.addEdge("analyze", "classify")
 
   .addConditionalEdges(
     "classify",

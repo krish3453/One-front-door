@@ -16,13 +16,15 @@ export const SourceSchema = z.object({
 export const AgentState = new StateSchema({
   question: z.string(),
 
+  questions: z.array(z.string()).optional(),
+
+  isMultiTopic: z.boolean().optional(),
+
   route: RouteSchema.optional(),
 
   response: z.string().optional(),
 
-  sources: z
-    .array(SourceSchema)
-    .optional(),
+  sources: z.array(SourceSchema).optional(),
 });
 
 export type AgentStateType =

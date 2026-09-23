@@ -18,7 +18,14 @@ export interface ChatRequest {
   conversationId?: string;
 }
 
+export interface ChatSource {
+  source: string;
+  page?: number;
+  documentType: string;
+}
+
 export interface ChatResponse {
   message: ChatMessage;
   conversationId: string;
+  sources?: ChatSource[];
 }

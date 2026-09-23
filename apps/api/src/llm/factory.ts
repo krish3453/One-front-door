@@ -14,7 +14,7 @@ export function createLLM(): BaseChatModel {
       });
 
     case "groq":
-        console.log("Using Groq LLM provider with model:", llmConfig.model);
+       // console.log("Using Groq LLM provider with model:", llmConfig.model);
       return new ChatGroq({
         model: llmConfig.model,
         temperature: 0,

@@ -7,12 +7,23 @@ export const RouteSchema = z.enum([
   "general",
 ]);
 
+export const SourceSchema = z.object({
+  source: z.string(),
+  page: z.number().optional(),
+  documentType: z.string(),
+});
+
 export const AgentState = new StateSchema({
   question: z.string(),
 
   route: RouteSchema.optional(),
 
   response: z.string().optional(),
+
+  sources: z
+    .array(SourceSchema)
+    .optional(),
 });
 
-export type AgentStateType = typeof AgentState.State;
+export type AgentStateType =
+  typeof AgentState.State;

@@ -5,7 +5,7 @@ import {
 const result =
   await academicNode({
     question:
-      "What is the minimum attendance required for the end semester examination?",
+  "What are the modules in CSET101?",
 
     route: "academic",
 

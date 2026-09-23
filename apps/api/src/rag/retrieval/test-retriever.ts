@@ -1,71 +1,30 @@
-import {
-  retrieveDocuments,
-} from "./retriever.js";
+import { retrieveDocuments } from "./retriever.js";
 
-const query =
-  "What is the minimum attendance required for the end semester examination?";
+const queries = [
+  "What is the minimum attendance required for the end semester examination?",
+  "What are the modules in CSET101?",
+  "What is CSET101?",
+];
 
-const results =
-  await retrieveDocuments(
-    query,
-    {
-        k:5
-    }
-    
-  );
+console.log("\n==============================");
+console.log("RETRIEVER TEST");
+console.log("==============================");
 
-console.log(
-  "\n=============================="
-);
+for (const query of queries) {
+  console.log(`\nQuery: ${query}`);
 
-console.log(
-  "RETRIEVER TEST"
-);
+  const results = await retrieveDocuments(query, {
+    k: 5,
+  });
 
-console.log(
-  "=============================="
-);
+  console.log(`Results: ${results.length}`);
 
-console.log(
-  `\nQuery: ${query}`
-);
-
-console.log(
-  `Results: ${results.length}`
-);
-
-results.forEach(
-  (result, index) => {
-    console.log(
-      `\n--- RESULT ${index + 1} ---`
-    );
-
-    console.log(
-      "Source:",
-      result.source
-    );
-
-    console.log(
-      "Page:",
-      result.page
-    );
-
-    console.log(
-      "Type:",
-      result.documentType
-    );
-
-    console.log(
-      "Extraction:",
-      result.extractionMethod
-    );
-
-    console.log(
-      "\nContent:"
-    );
-
-    console.log(
-      result.content
-    );
-  }
-);
+  results.forEach((result, index) => {
+    console.log(`\n--- RESULT ${index + 1} ---`);
+    console.log(`Source: ${result.source}`);
+    console.log(`Page: ${result.page ?? "N/A"}`);
+    console.log(`Type: ${result.documentType}`);
+    console.log(`Extraction: ${result.extractionMethod}`);
+    console.log(`Content:\n${result.content}`);
+  });
+}

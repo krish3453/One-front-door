@@ -19,6 +19,16 @@ export interface RAGMetadata {
   page?: number;
   documentType: DocumentType;
   extractionMethod: ExtractionMethod;
+  courseCode?: string;
+}
+
+
+function getCourseCode(document: Document): string | undefined {
+  const text = document.pageContent;
+
+  const match = text.match(/\bCSET\d{3}\b/i);
+
+  return match ? match[0].toUpperCase() : undefined;
 }
 
 function getDocumentType(
@@ -114,13 +124,13 @@ export function enrichDocumentMetadata(
 
   const source = path.basename(sourcePath);
 
-  const metadata: RAGMetadata = {
-    source,
-    page: getPageNumber(document),
-    documentType: getDocumentType(source),
-    extractionMethod:
-      getExtractionMethod(document),
-  };
+const metadata: RAGMetadata = {
+  source,
+  page: getPageNumber(document),
+  documentType: getDocumentType(source),
+  extractionMethod: getExtractionMethod(document),
+  courseCode: getCourseCode(document),
+};
 
   return new Document({
     pageContent: document.pageContent,

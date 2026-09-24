@@ -10,6 +10,7 @@ export async function synthesizeNode(
   if (!state.questionResults?.length) {
     return {
       response: state.response,
+      agents: state.route ? [state.route] : [],
     };
   }
 
@@ -51,7 +52,16 @@ Rules:
       ? response.content
       : JSON.stringify(response.content);
 
+  const agents = [
+    ...new Set(
+      state.questionResults.map(
+        (result) => result.route
+      )
+    ),
+  ];
+
   return {
     response: content,
+    agents,
   };
 }

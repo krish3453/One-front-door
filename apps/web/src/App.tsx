@@ -114,11 +114,14 @@ function App() {
                 )}
               </div>
 
-              {message.agent && (
-                <div className="message-agent">
-                  {message.agent}
-                </div>
-              )}
+              {message.role === "assistant" && message.agent && (
+  <div className="message-agent">
+    {message.agent === "campus" && " Campus Assistant"}
+    {message.agent === "academic" && " Academic Assistant"}
+    {message.agent === "general" && " General Assistant"}
+    {message.agent === "multi" && "Multiple Assistants"}
+  </div>
+)}
 
               {message.role === "assistant" &&
                 message.sources &&

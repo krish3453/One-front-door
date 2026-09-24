@@ -47,25 +47,30 @@ app.post("/api/chat", async (req, res) => {
       content:
         result.response ??
         "I could not generate a response.",
-      agent: result.route,
+      agent:
+        result.agents && result.agents.length > 1
+          ? "multi"
+          : result.agents?.[0] ?? result.route,
+
+
       createdAt: new Date().toISOString(),
     };
 
     const response: ChatResponse = {
-  message: responseMessage,
-  conversationId:
-    conversationId ?? crypto.randomUUID(),
-  sources: Array.from(
-  new Map(
-    (result.sources ?? []).map((source) => [
-      `${source.source}|${source.page ?? ""}|${source.documentType}`,
-      source,
-    ])
-  ).values()
-),
+      message: responseMessage,
+      conversationId:
+        conversationId ?? crypto.randomUUID(),
+      sources: Array.from(
+        new Map(
+          (result.sources ?? []).map((source) => [
+            `${source.source}|${source.page ?? ""}|${source.documentType}`,
+            source,
+          ])
+        ).values()
+      ),
 
 
-};
+    };
 
     res.json(response);
   } catch (error) {

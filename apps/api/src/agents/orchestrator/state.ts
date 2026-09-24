@@ -16,32 +16,27 @@ export const SourceSchema = z.object({
 export const QuestionResultSchema = z.object({
   question: z.string(),
   route: RouteSchema,
-  response: z.string().optional(),
-  sources: z.array(SourceSchema).optional(),
+  response: z.string(),
 });
 
 export const AgentState = new StateSchema({
-  // Original user question
   question: z.string(),
 
-  // Questions extracted by the analyzer
   questions: z.array(z.string()).optional(),
 
-  // Whether the query contains multiple independent questions
   isMultiTopic: z.boolean().optional(),
 
-  // Route for a single-topic query
   route: RouteSchema.optional(),
 
-  // Final combined response
   response: z.string().optional(),
 
-  // Sources used by agents
+  agents: z.array(RouteSchema).optional(),
+
   sources: z.array(SourceSchema).optional(),
 
-  // Results for each question in a multi-topic query
-  questionResults: z.array(QuestionResultSchema).optional(),
+  questionResults: z
+    .array(QuestionResultSchema)
+    .optional(),
 });
 
-export type AgentStateType =
-  typeof AgentState.State;
+export type AgentStateType = typeof AgentState.State;

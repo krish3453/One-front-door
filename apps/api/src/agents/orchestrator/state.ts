@@ -17,6 +17,7 @@ export const QuestionResultSchema = z.object({
   question: z.string(),
   route: RouteSchema,
   response: z.string(),
+  sources: z.array(SourceSchema),
 });
 
 export const AgentState = new StateSchema({
@@ -30,13 +31,11 @@ export const AgentState = new StateSchema({
 
   response: z.string().optional(),
 
-  agents: z.array(RouteSchema).optional(),
-
   sources: z.array(SourceSchema).optional(),
 
-  questionResults: z
-    .array(QuestionResultSchema)
-    .optional(),
+  questionResults:
+    z.array(QuestionResultSchema).optional(),
 });
 
-export type AgentStateType = typeof AgentState.State;
+export type AgentStateType =
+  typeof AgentState.State;

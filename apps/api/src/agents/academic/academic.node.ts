@@ -8,31 +8,19 @@ const llm = createLLM();
 export async function academicNode(
   state: AgentStateType
 ) {
-  console.log("\nAcademic Agent:");
-
-  const questions =
-    state.questions?.length
-      ? state.questions
-      : [state.question];
-
+  console.log("\n[Academic Agent]");
   console.log(
-    `Retrieving information for ${questions.length} question(s)...`
+    `Retrieving information for: ${state.question}`
   );
 
-  const allDocuments = [];
+  const documents = await retrieveDocuments(
+    state.question,
+    {
+      k: 5,
+    }
+  );
 
-  for (const question of questions) {
-    console.log(`\nRetrieving for: ${question}`);
-
-    const documents = await retrieveDocuments(
-      question,
-      { k: 5 }
-    );
-
-    allDocuments.push(...documents);
-  }
-
-  if (allDocuments.length === 0) {
+  if (documents.length === 0) {
     return {
       response:
         "I could not find relevant information in the university documents.",
@@ -40,11 +28,10 @@ export async function academicNode(
     };
   }
 
-  // Remove duplicate chunks retrieved by different questions.
   const seen = new Set<string>();
 
-  const documents = allDocuments.filter(
-    (document) => {
+  const uniqueDocuments =
+    documents.filter((document) => {
       const key = [
         document.source,
         document.page,
@@ -58,26 +45,33 @@ export async function academicNode(
       seen.add(key);
 
       return true;
-    }
-  );
+    });
 
   console.log(
-    `Retrieved ${documents.length} unique document chunks.`
+    `[Academic Agent] Retrieved ${uniqueDocuments.length} unique chunks`
   );
 
-  const context = documents
+  const context = uniqueDocuments
     .map(
       (document, index) => `
 SOURCE ${index + 1}
-Source: ${document.source}
-Page: ${document.page ?? "N/A"}
-Document Type: ${document.documentType}
+
+Source:
+${document.source}
+
+Page:
+${document.page ?? "N/A"}
+
+Document Type:
+${document.documentType}
 
 Content:
 ${document.content}
 `
     )
-    .join("\n--------------------\n");
+    .join(
+      "\n--------------------\n"
+    );
 
   const response = await llm.invoke([
     {
@@ -90,30 +84,27 @@ the university documents provided in the context.
 
 Rules:
 
-1. Answer all parts of the user's question.
+1. Answer the user's question directly.
 
-2. Use the provided context as the primary
-   source of truth.
+2. Use the provided university documents
+   as the primary source of truth.
 
 3. Do not invent university-specific
    information.
 
-4. If the context does not contain enough
-   information for a particular part of the
-   question, clearly say that the available
-   documents do not provide enough information
-   for that part.
+4. If the documents do not contain enough
+   information, clearly say so.
 
-5. Give a concise and direct answer.
+5. Keep the answer concise and useful.
 
-6. When the user asks multiple questions,
-   clearly separate the answers.
+6. Do not mention:
+   - retrieval
+   - embeddings
+   - Qdrant
+   - agents
+   - internal architecture
 
-7. Do not mention internal retrieval,
-   embeddings, Qdrant, agents, or system
-   architecture.
-
-8. Do not create fake citations.
+7. Do not create fake citations.
 
 University document context:
 
@@ -126,17 +117,22 @@ ${context}
     },
   ]);
 
-  const sources = documents.map((document) => ({
-    source: document.source,
-    page: document.page,
-    documentType: document.documentType,
-  }));
+  const sources = uniqueDocuments.map(
+    (document) => ({
+      source: document.source,
+      page: document.page,
+      documentType:
+        document.documentType,
+    })
+  );
 
   return {
     response:
       typeof response.content === "string"
         ? response.content
-        : JSON.stringify(response.content),
+        : JSON.stringify(
+            response.content
+          ),
 
     sources,
   };

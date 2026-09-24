@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 import type {
@@ -18,6 +18,14 @@ function App() {
   const [messages, setMessages] = useState<UIMessage[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [messages, loading]);
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>
@@ -79,92 +87,186 @@ function App() {
     }
   };
 
+  const handleClearChat = () => {
+    if (loading) {
+      return;
+    }
+
+    setMessages([]);
+    setInput("");
+  };
+
+  const handleSuggestion = (suggestion: string) => {
+    if (loading) {
+      return;
+    }
+
+    setInput(suggestion);
+  };
+
   return (
     <div className="app">
       <header className="header">
-        <h1>One Front Door</h1>
-        <p>University AI Assistant</p>
+        <div className="header-inner">
+          <div>
+            <h1>One Front Door</h1>
+            <p>University AI Assistant</p>
+          </div>
+
+          {messages.length > 0 && (
+            <button
+              className="clear-button"
+              onClick={handleClearChat}
+              disabled={loading}
+            >
+              Clear chat
+            </button>
+          )}
+        </div>
       </header>
 
       <main className="chat-container">
         <div className="messages">
           {messages.length === 0 && (
-            <div className="empty-state">
+            <div className="welcome">
+              <div className="welcome-icon">
+                OFD
+              </div>
+
               <h2>How can I help?</h2>
 
               <p>
-                Ask about courses, exams, attendance,
-                university rules, or general questions.
+                Ask about academics, campus services,
+                university information, or general questions.
               </p>
+
+              <div className="suggestions">
+                <button
+                  onClick={() =>
+                    handleSuggestion(
+                      "Where is the library?"
+                    )
+                  }
+                >
+                  Where is the library?
+                </button>
+
+                <button
+                  onClick={() =>
+                    handleSuggestion(
+                      "What is recursion?"
+                    )
+                  }
+                >
+                  What is recursion?
+                </button>
+
+                <button
+                  onClick={() =>
+                    handleSuggestion(
+                      "Tell me about university services"
+                    )
+                  }
+                >
+                  University services
+                </button>
+              </div>
             </div>
           )}
 
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`message ${message.role}`}
+              className={`message-row ${message.role}`}
             >
-              <div className="message-content">
+              <div
+                className={`message ${
+                  message.role === "user"
+                    ? "user-message"
+                    : "assistant-message"
+                }`}
+              >
                 {message.role === "assistant" ? (
-                  <ReactMarkdown>
-                    {message.content}
-                  </ReactMarkdown>
+                  <div className="markdown-content">
+                    <ReactMarkdown>
+                      {message.content}
+                    </ReactMarkdown>
+                  </div>
                 ) : (
-                  message.content
-                )}
-              </div>
-
-              {message.role === "assistant" && message.agent && (
-  <div className="message-agent">
-    {message.agent === "campus" && " Campus Assistant"}
-    {message.agent === "academic" && " Academic Assistant"}
-    {message.agent === "general" && " General Assistant"}
-    {message.agent === "multi" && "Multiple Assistants"}
-  </div>
-)}
-
-              {message.role === "assistant" &&
-                message.sources &&
-                message.sources.length > 0 && (
-                  <div className="sources">
-                    <div className="sources-title">
-                      Sources
-                    </div>
-
-                    {message.sources.map(
-                      (source, index) => (
-                        <div
-                          key={`${source.source}-${source.page}-${index}`}
-                          className="source"
-                        >
-                          <span className="source-name">
-                            {source.source}
-                          </span>
-
-                          {source.page !== undefined && (
-                            <span className="source-page">
-                              Page {source.page}
-                            </span>
-                          )}
-
-                          <span className="source-type">
-                            {source.documentType}
-                          </span>
-                        </div>
-                      )
-                    )}
+                  <div className="user-content">
+                    {message.content}
                   </div>
                 )}
+
+                {message.role === "assistant" &&
+                  message.agent && (
+                    <div className="agent-badge">
+                      {message.agent === "academic" &&
+                        "Academic"}
+
+                      {message.agent === "campus" &&
+                        "Campus"}
+
+                      {message.agent === "general" &&
+                        "General"}
+
+                      {message.agent === "multi" &&
+                        "Multiple topics"}
+                    </div>
+                  )}
+
+                {message.role === "assistant" &&
+                  message.sources &&
+                  message.sources.length > 0 && (
+                    <div className="sources">
+                      <div className="sources-title">
+                        Sources
+                      </div>
+
+                      {message.sources.map(
+                        (source, index) => (
+                          <div
+                            key={`${source.source}-${source.page}-${index}`}
+                            className="source"
+                          >
+                            <div className="source-main">
+                              <span className="source-name">
+                                {source.source}
+                              </span>
+
+                              {source.page !==
+                                undefined && (
+                                <span>
+                                  Page {source.page}
+                                </span>
+                              )}
+                            </div>
+
+                            <span className="source-type">
+                              {source.documentType}
+                            </span>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  )}
+              </div>
             </div>
           ))}
 
           {loading && (
-            <div className="message assistant">
-              <div className="message-content">
-                Thinking...
+            <div className="message-row assistant">
+              <div className="message assistant-message loading-message">
+                <div className="loading-content">
+                  <span />
+                  <span />
+                  <span />
+                </div>
               </div>
             </div>
           )}
+
+          <div ref={messagesEndRef} />
         </div>
 
         <form
@@ -179,6 +281,7 @@ function App() {
             }
             placeholder="Ask something..."
             disabled={loading}
+            autoComplete="off"
           />
 
           <button
@@ -187,7 +290,7 @@ function App() {
               loading || input.trim().length === 0
             }
           >
-            Send
+            {loading ? "..." : "Send"}
           </button>
         </form>
       </main>

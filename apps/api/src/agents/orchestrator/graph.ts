@@ -10,18 +10,43 @@ import { analyzeNode } from "./node/analyze.node.js";
 import { executeQuestionsNode } from "./node/execute-questions.node.js";
 import { synthesizeNode } from "./node/synthesize.node.js";
 
-const workflow = new StateGraph(AgentState)
+const workflow =
+  new StateGraph(AgentState)
 
-  .addNode("analyze", analyzeNode)
-  .addNode("executeQuestions", executeQuestionsNode)
-  .addNode("synthesize", synthesizeNode)
+    .addNode(
+      "analyze",
+      analyzeNode
+    )
 
-  .addEdge(START, "analyze")
+    .addNode(
+      "executeQuestions",
+      executeQuestionsNode
+    )
 
-  .addEdge("analyze", "executeQuestions")
+    .addNode(
+      "synthesize",
+      synthesizeNode
+    )
 
-  .addEdge("executeQuestions", "synthesize")
+    .addEdge(
+      START,
+      "analyze"
+    )
 
-  .addEdge("synthesize", END);
+    .addEdge(
+      "analyze",
+      "executeQuestions"
+    )
 
-export const graph = workflow.compile();
+    .addEdge(
+      "executeQuestions",
+      "synthesize"
+    )
+
+    .addEdge(
+      "synthesize",
+      END
+    );
+
+export const graph =
+  workflow.compile();

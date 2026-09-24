@@ -2,11 +2,13 @@ import type { AgentStateType } from "../orchestrator/state.js";
 import { campusAgent } from "./campus-agent.js";
 
 export async function campusNode(state: AgentStateType) {
+  const question = state.questions?.[0] ?? state.question;
+
   const result = await campusAgent.invoke({
     messages: [
       {
         role: "user",
-        content: state.question,
+        content: question,
       },
     ],
   });

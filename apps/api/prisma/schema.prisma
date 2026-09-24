@@ -1,0 +1,147 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model CampusLocation {
+  id          String   @id @default(uuid())
+  name        String
+  category    String
+  description String?
+  building    String?
+  floor       String?
+  address     String?
+  latitude    Float?
+  longitude   Float?
+
+  sourceUrl   String?
+  verifiedAt  DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  services    CampusService[]
+  dining      DiningOutlet[]
+
+  @@index([name])
+  @@index([category])
+  @@index([building])
+}
+
+model CampusService {
+  id          String   @id @default(uuid())
+  name        String
+  category    String
+  description String?
+
+  locationId  String?
+  location    CampusLocation? @relation(fields: [locationId], references: [id])
+
+  phone       String?
+  email       String?
+  website     String?
+
+  openingHours Json?
+
+  sourceUrl   String?
+  verifiedAt  DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([name])
+  @@index([category])
+  @@index([locationId])
+}
+
+model DiningOutlet {
+  id          String   @id @default(uuid())
+  name        String
+  type        String?
+  description String?
+
+  locationId  String?
+  location    CampusLocation? @relation(fields: [locationId], references: [id])
+
+  phone       String?
+  menuUrl     String?
+
+  sourceUrl   String?
+  verifiedAt  DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  hours       DiningHours[]
+
+  @@index([name])
+  @@index([type])
+  @@index([locationId])
+}
+
+model DiningHours {
+  id          String   @id @default(uuid())
+
+  diningId    String
+  dining      DiningOutlet @relation(fields: [diningId], references: [id], onDelete: Cascade)
+
+  dayOfWeek   Int
+  openTime    String?
+  closeTime   String?
+  isClosed    Boolean  @default(false)
+
+  @@index([diningId])
+  @@index([dayOfWeek])
+}
+
+model CampusEvent {
+  id          String   @id @default(uuid())
+
+  title       String
+  description String?
+
+  category    String?
+  venue       String?
+
+  startTime   DateTime
+  endTime     DateTime?
+
+  organizer   String?
+  registrationUrl String?
+
+  sourceUrl   String?
+  verifiedAt  DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([startTime])
+  @@index([category])
+  @@index([organizer])
+}
+
+model EmergencyContact {
+  id          String   @id @default(uuid())
+
+  name        String
+  category    String
+  phone       String
+  alternatePhone String?
+  description String?
+
+  available24x7 Boolean @default(false)
+
+  sourceUrl   String?
+  verifiedAt  DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([name])
+}

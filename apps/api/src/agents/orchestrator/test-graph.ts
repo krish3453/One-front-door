@@ -1,7 +1,7 @@
 import { graph } from "./graph.js";
 
 const result = await graph.invoke({
-  question: "eplain recursuion in simple terms",
+  question: "WWhat food outlets are available on campus?",
 });
 
 console.log("\nGraph result:");

@@ -10,5 +10,11 @@
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.3"
+  },
+  "devDependencies": {
+    "prisma": "7.4.0"
   }
 }

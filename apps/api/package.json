@@ -27,18 +27,22 @@
     "@langchain/textsplitters": "^1.0.1",
     "@langchain/xai": "^1.4.13",
     "@one-front-door/shared-types": "workspace:*",
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "7.4.0",
     "@qdrant/js-client-rest": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^17.0.0",
     "express": "^5.0.0",
     "groq-sdk": "^1.6.0",
     "pdf-parse": "^2.4.5",
+    "pg": "^8.23.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.2",
+    "prisma": "7.4.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }

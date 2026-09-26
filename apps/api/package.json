@@ -15,7 +15,8 @@
     "rag:prepare": "tsx src/rag/ingestion/prepare-rag.ts",
     "rag:retrieve": "tsx src/rag/retrieval/test-retriever.ts",
     "academic:test": "tsx src/agents/academic/test-academic.ts",
-    "rag:migrate-metadata": "tsx src/rag/vectorstore/migrate-course-metadata.ts"
+    "rag:migrate-metadata": "tsx src/rag/vectorstore/migrate-course-metadata.ts",
+    "cache:invalidate": "tsx src/db/invalidate-cache.ts"
   },
   "dependencies": {
     "@langchain/community": "^1.1.29",

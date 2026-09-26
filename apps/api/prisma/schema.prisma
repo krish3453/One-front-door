@@ -7,20 +7,20 @@ datasource db {
 }
 
 model CampusLocation {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   shortName   String?
   category    String
   description String?
 
-  building    String?
-  floor       String?
-  room        String?
-  address     String?
-  landmark    String?
+  building String?
+  floor    String?
+  room     String?
+  address  String?
+  landmark String?
 
-  latitude    Float?
-  longitude   Float?
+  latitude  Float?
+  longitude Float?
 
   contactPhone String?
   email        String?
@@ -30,14 +30,14 @@ model CampusLocation {
   facilities    Json?
   status        String?
 
-  sourceUrl   String?
-  verifiedAt  DateTime?
+  sourceUrl  String?
+  verifiedAt DateTime?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  services    CampusService[]
-  dining      DiningOutlet[]
+  services          CampusService[]
+  dining            DiningOutlet[]
   emergencyContacts EmergencyContact[]
 
   @@index([name])
@@ -48,25 +48,25 @@ model CampusLocation {
 }
 
 model CampusService {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   category    String
   description String?
 
-  locationId  String?
-  location    CampusLocation? @relation(fields: [locationId], references: [id])
+  locationId String?
+  location   CampusLocation? @relation(fields: [locationId], references: [id])
 
-  phone       String?
-  email       String?
-  website     String?
+  phone   String?
+  email   String?
+  website String?
 
   openingHours Json?
 
-  sourceUrl   String?
-  verifiedAt  DateTime?
+  sourceUrl  String?
+  verifiedAt DateTime?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([name])
   @@index([category])
@@ -74,29 +74,29 @@ model CampusService {
 }
 
 model DiningOutlet {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   type        String?
   description String?
 
-  locationId  String?
-  location    CampusLocation? @relation(fields: [locationId], references: [id])
+  locationId String?
+  location   CampusLocation? @relation(fields: [locationId], references: [id])
 
-  phone       String?
-  menuUrl     String?
+  phone   String?
+  menuUrl String?
 
-  cuisine         String?
-  priceRange      String?
-  paymentMethods  Json?
-  features        Json?
+  cuisine        String?
+  priceRange     String?
+  paymentMethods Json?
+  features       Json?
 
-  sourceUrl   String?
-  verifiedAt  DateTime?
+  sourceUrl  String?
+  verifiedAt DateTime?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  hours       DiningHours[]
+  hours DiningHours[]
 
   @@index([name])
   @@index([type])
@@ -105,15 +105,15 @@ model DiningOutlet {
 }
 
 model DiningHours {
-  id          String   @id @default(uuid())
+  id String @id @default(uuid())
 
-  diningId    String
-  dining      DiningOutlet @relation(fields: [diningId], references: [id], onDelete: Cascade)
+  diningId String
+  dining   DiningOutlet @relation(fields: [diningId], references: [id], onDelete: Cascade)
 
-  dayOfWeek   Int
-  openTime    String?
-  closeTime   String?
-  isClosed    Boolean  @default(false)
+  dayOfWeek Int
+  openTime  String?
+  closeTime String?
+  isClosed  Boolean @default(false)
 
   @@unique([diningId, dayOfWeek])
   @@index([diningId])
@@ -121,30 +121,30 @@ model DiningHours {
 }
 
 model CampusEvent {
-  id          String   @id @default(uuid())
+  id String @id @default(uuid())
 
   title       String
   description String?
 
-  category    String?
-  venue       String?
+  category String?
+  venue    String?
 
-  startTime   DateTime
-  endTime     DateTime?
+  startTime DateTime
+  endTime   DateTime?
 
-  organizer   String?
-  audience    String?
+  organizer String?
+  audience  String?
 
   registrationUrl      String?
   registrationRequired Boolean @default(false)
 
-  status      String?
+  status String?
 
-  sourceUrl   String?
-  verifiedAt  DateTime?
+  sourceUrl  String?
+  verifiedAt DateTime?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([startTime])
   @@index([category])
@@ -153,28 +153,73 @@ model CampusEvent {
 }
 
 model EmergencyContact {
-  id          String   @id @default(uuid())
+  id String @id @default(uuid())
 
-  name        String
-  category    String
-  phone       String
+  name           String
+  category       String
+  phone          String
   alternatePhone String?
-  description String?
+  description    String?
 
   available24x7 Boolean @default(false)
 
-  locationId  String?
-  location    CampusLocation? @relation(fields: [locationId], references: [id])
+  locationId String?
+  location   CampusLocation? @relation(fields: [locationId], references: [id])
 
-  website     String?
+  website String?
 
-  sourceUrl   String?
-  verifiedAt  DateTime?
+  sourceUrl  String?
+  verifiedAt DateTime?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([category])
   @@index([name])
   @@index([locationId])
+}
+
+model User {
+  id    String  @id @default(uuid())
+  email String  @unique
+  name  String?
+  image String?
+
+  provider   String
+  providerId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  conversations Conversation[]
+
+  @@index([provider, providerId])
+}
+
+model Conversation {
+  id     String  @id @default(uuid())
+  userId String
+  title  String?
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Message {
+  id             String  @id @default(uuid())
+  conversationId String
+  role           String
+  content        String
+  agent          String?
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([conversationId])
 }

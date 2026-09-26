@@ -7,7 +7,8 @@ const ClassificationSchema = z.object({
   route: z.enum(["academic","campus","general",]),
 });
 
-const llm = createLLM();
+const llm =
+  createLLM("classifier");
 console.log("[Classifier] LLM initialized");
 
 export async function classifyNode(

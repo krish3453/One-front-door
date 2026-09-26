@@ -3,7 +3,8 @@ import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { campusTools } from "./tools/index.js";
 import { createLLM } from "../../llm/factory.js";
 
-const model = createLLM();
+const model =
+  createLLM("campus");
 
 export const campusAgent = createReactAgent({
   llm: model,

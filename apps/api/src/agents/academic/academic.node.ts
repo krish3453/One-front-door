@@ -3,7 +3,8 @@ import type { AgentStateType } from "../orchestrator/state.js";
 import { retrieveDocuments } from "../../rag/retrieval/retriever.js";
 import { createLLM } from "../../llm/factory.js";
 
-const llm = createLLM();
+const llm =
+  createLLM("academic");
 
 export async function academicNode(
   state: AgentStateType

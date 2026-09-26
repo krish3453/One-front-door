@@ -2,7 +2,8 @@ import { createLLM } from "../../../llm/factory.js";
 
 import type { AgentStateType } from "../state.js";
 
-const llm = createLLM();
+const llm =
+  createLLM("synthesizer");
 
 export async function synthesizeNode(
   state: AgentStateType

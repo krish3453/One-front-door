@@ -2,7 +2,8 @@ import { createLLM } from "../../../llm/factory.js";
 
 import type { AgentStateType } from "../state.js";
 
-const llm = createLLM();
+const llm =
+  createLLM("analyzer");
 
 export interface AnalyzedQuestion {
   isMultiTopic: boolean;

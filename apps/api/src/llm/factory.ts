@@ -1,25 +1,48 @@
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatGroq } from "@langchain/groq";
+
 import type { BaseChatModel } from "@langchain/core/language_models/chat_models";
 
 import { llmConfig } from "./config.js";
+import { instrumentLLM } from "./instrumented-llm.js";
 
-export function createLLM(): BaseChatModel {
+export function createLLM(
+  operation: string = "unknown"
+): BaseChatModel {
   switch (llmConfig.provider) {
-    case "google":
-      return new ChatGoogleGenerativeAI({
-        model: llmConfig.model,
-        temperature: 0,
-        apiKey: process.env.GOOGLE_API_KEY,
-      });
+    case "google": {
+      const llm =
+        new ChatGoogleGenerativeAI({
+          model: llmConfig.model,
+          temperature: 0,
+          apiKey:
+            process.env.GOOGLE_API_KEY,
+        });
 
-    case "groq":
-       // console.log("Using Groq LLM provider with model:", llmConfig.model);
-      return new ChatGroq({
-        model: llmConfig.model,
-        temperature: 0,
-        apiKey: process.env.GROQ_API_KEY,
-      });
+      return instrumentLLM(
+        llm,
+        "google",
+        llmConfig.model,
+        operation
+      );
+    }
+
+    case "groq": {
+      const llm =
+        new ChatGroq({
+          model: llmConfig.model,
+          temperature: 0,
+          apiKey:
+            process.env.GROQ_API_KEY,
+        });
+
+      return instrumentLLM(
+        llm,
+        "groq",
+        llmConfig.model,
+        operation
+      );
+    }
 
     case "openai":
       throw new Error(
@@ -27,7 +50,6 @@ export function createLLM(): BaseChatModel {
       );
 
     case "anthropic":
-        
       throw new Error(
         "Anthropic provider is not installed yet."
       );

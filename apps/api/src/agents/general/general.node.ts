@@ -2,7 +2,8 @@ import type { AgentStateType } from "../orchestrator/state.js";
 
 import { createLLM } from "../../llm/factory.js";
 
-const llm = createLLM();
+const llm =
+  createLLM("general");
 
 export async function generalNode(
   state: AgentStateType

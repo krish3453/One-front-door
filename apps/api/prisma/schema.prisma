@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,13 +9,26 @@ datasource db {
 model CampusLocation {
   id          String   @id @default(uuid())
   name        String
+  shortName   String?
   category    String
   description String?
+
   building    String?
   floor       String?
+  room        String?
   address     String?
+  landmark    String?
+
   latitude    Float?
   longitude   Float?
+
+  contactPhone String?
+  email        String?
+  website      String?
+
+  accessibility Json?
+  facilities    Json?
+  status        String?
 
   sourceUrl   String?
   verifiedAt  DateTime?
@@ -27,10 +38,13 @@ model CampusLocation {
 
   services    CampusService[]
   dining      DiningOutlet[]
+  emergencyContacts EmergencyContact[]
 
   @@index([name])
+  @@index([shortName])
   @@index([category])
   @@index([building])
+  @@index([status])
 }
 
 model CampusService {
@@ -71,6 +85,11 @@ model DiningOutlet {
   phone       String?
   menuUrl     String?
 
+  cuisine         String?
+  priceRange      String?
+  paymentMethods  Json?
+  features        Json?
+
   sourceUrl   String?
   verifiedAt  DateTime?
 
@@ -81,6 +100,7 @@ model DiningOutlet {
 
   @@index([name])
   @@index([type])
+  @@index([cuisine])
   @@index([locationId])
 }
 
@@ -95,6 +115,7 @@ model DiningHours {
   closeTime   String?
   isClosed    Boolean  @default(false)
 
+  @@unique([diningId, dayOfWeek])
   @@index([diningId])
   @@index([dayOfWeek])
 }
@@ -112,7 +133,12 @@ model CampusEvent {
   endTime     DateTime?
 
   organizer   String?
-  registrationUrl String?
+  audience    String?
+
+  registrationUrl      String?
+  registrationRequired Boolean @default(false)
+
+  status      String?
 
   sourceUrl   String?
   verifiedAt  DateTime?
@@ -123,6 +149,7 @@ model CampusEvent {
   @@index([startTime])
   @@index([category])
   @@index([organizer])
+  @@index([status])
 }
 
 model EmergencyContact {
@@ -136,6 +163,11 @@ model EmergencyContact {
 
   available24x7 Boolean @default(false)
 
+  locationId  String?
+  location    CampusLocation? @relation(fields: [locationId], references: [id])
+
+  website     String?
+
   sourceUrl   String?
   verifiedAt  DateTime?
 
@@ -144,4 +176,5 @@ model EmergencyContact {
 
   @@index([category])
   @@index([name])
+  @@index([locationId])
 }

@@ -1,6 +1,10 @@
-import { createLLM } from "../../../llm/factory.js";
+import {
+  createLLM,
+} from "../../../llm/factory.js";
 
-import type { AgentStateType } from "../state.js";
+import type {
+  AgentStateType,
+} from "../state.js";
 
 const llm =
   createLLM("synthesizer");
@@ -8,7 +12,13 @@ const llm =
 export async function synthesizeNode(
   state: AgentStateType
 ) {
-  if (!state.questionResults?.length) {
+
+  /*
+   * No agent results.
+   */
+  if (
+    !state.questionResults?.length
+  ) {
     return {
       response:
         state.response ??
@@ -19,10 +29,17 @@ export async function synthesizeNode(
     };
   }
 
+  /*
+   * Format specialized-agent
+   * responses for the synthesizer.
+   */
   const formattedResults =
     state.questionResults
       .map(
-        (result, index) =>
+        (
+          result,
+          index
+        ) =>
           `
 Question ${index + 1}:
 ${result.question}
@@ -31,16 +48,20 @@ Answer:
 ${result.response}
 `
       )
-      .join("\n--------------------\n");
+      .join(
+        "\n--------------------\n"
+      );
 
   console.log(
     "\n[Synthesizer] Generating final answer..."
   );
 
-  const response = await llm.invoke([
-    {
-      role: "system",
-      content: `
+  const response =
+    await llm.invoke([
+      {
+        role: "system",
+
+        content: `
 You are the final response synthesizer
 for One Front Door, a university AI assistant.
 
@@ -65,13 +86,14 @@ Rules:
 6. Use natural and user-friendly language.
 
 7. Do not mention:
-   - agents
-   - routing
-   - orchestration
-   - retrieval
-   - Qdrant
-   - embeddings
-   - internal architecture
+
+- agents
+- routing
+- orchestration
+- retrieval
+- Qdrant
+- embeddings
+- internal architecture
 
 8. Do not create fake citations.
 
@@ -81,40 +103,57 @@ Agent answers:
 
 ${formattedResults}
 `,
-    },
-    {
-      role: "user",
-      content: state.question,
-    },
-  ]);
+      },
+
+      {
+        role: "user",
+
+        content:
+          state.question,
+      },
+    ]);
 
   const finalResponse =
-    typeof response.content === "string"
+    typeof response.content ===
+    "string"
       ? response.content
       : JSON.stringify(
           response.content
         );
 
+  /*
+   * Collect sources from all
+   * specialized agents.
+   */
   const allSources =
     state.questionResults.flatMap(
       (result) =>
         result.sources ?? []
     );
 
+  /*
+   * Remove duplicate sources.
+   */
   const uniqueSources =
     Array.from(
       new Map(
-        allSources.map((source) => [
-          `${source.source}|${
-            source.page ?? ""
-          }|${source.documentType}`,
-          source,
-        ])
+        allSources.map(
+          (source) => [
+            `${source.source}|${
+              source.page ?? ""
+            }|${source.documentType}`,
+
+            source,
+          ]
+        )
       ).values()
     );
 
   return {
-    response: finalResponse,
-    sources: uniqueSources,
+    response:
+      finalResponse,
+
+    sources:
+      uniqueSources,
   };
 }

@@ -1,41 +1,144 @@
 import { StateSchema } from "@langchain/langgraph";
 import { z } from "zod";
 
+/*
+ * --------------------------------------------------
+ * ROUTES
+ * --------------------------------------------------
+ */
+
 export const RouteSchema = z.enum([
   "academic",
   "campus",
   "general",
 ]);
 
+/*
+ * --------------------------------------------------
+ * CONVERSATION MESSAGE
+ * --------------------------------------------------
+ */
+
+export const ConversationMessageSchema =
+  z.object({
+    role: z.enum([
+      "user",
+      "assistant",
+    ]),
+
+    content: z.string(),
+  });
+
+/*
+ * --------------------------------------------------
+ * SOURCES
+ * --------------------------------------------------
+ */
+
 export const SourceSchema = z.object({
   source: z.string(),
-  page: z.number().optional(),
-  documentType: z.string(),
+
+  page:
+    z.number().optional(),
+
+  documentType:
+    z.string(),
 });
 
-export const QuestionResultSchema = z.object({
-  question: z.string(),
-  route: RouteSchema,
-  response: z.string(),
-  sources: z.array(SourceSchema),
-});
+/*
+ * --------------------------------------------------
+ * QUESTION RESULT
+ * --------------------------------------------------
+ */
 
-export const AgentState = new StateSchema({
-  question: z.string(),
+export const QuestionResultSchema =
+  z.object({
+    question: z.string(),
 
-  questions: z.array(z.string()).optional(),
+    route: RouteSchema,
 
-  isMultiTopic: z.boolean().optional(),
+    response: z.string(),
 
-  route: RouteSchema.optional(),
+    sources:
+      z.array(
+        SourceSchema
+      ),
+  });
 
-  response: z.string().optional(),
+/*
+ * --------------------------------------------------
+ * AGENT STATE
+ * --------------------------------------------------
+ */
 
-  sources: z.array(SourceSchema).optional(),
+export const AgentState =
+  new StateSchema({
 
-  questionResults:
-    z.array(QuestionResultSchema).optional(),
-});
+    /*
+     * Original current user question.
+     */
+    question:
+      z.string(),
+
+    /*
+     * Authenticated user.
+     */
+    userId:
+      z.string(),
+
+    /*
+     * Current conversation.
+     */
+    conversationId:
+      z.string().optional(),
+
+    /*
+     * Previous conversation messages.
+     */
+    history:
+      z.array(
+        ConversationMessageSchema
+      ).optional(),
+
+    /*
+     * Multi-topic analysis.
+     */
+    questions:
+      z.array(
+        z.string()
+      ).optional(),
+
+    isMultiTopic:
+      z.boolean().optional(),
+
+    /*
+     * Classification.
+     */
+    route:
+      RouteSchema.optional(),
+
+    /*
+     * Final response.
+     */
+    response:
+      z.string().optional(),
+
+    /*
+     * RAG sources.
+     */
+    sources:
+      z.array(
+        SourceSchema
+      ).optional(),
+
+    /*
+     * Individual question results.
+     */
+    questionResults:
+      z.array(
+        QuestionResultSchema
+      ).optional(),
+  });
 
 export type AgentStateType =
   typeof AgentState.State;

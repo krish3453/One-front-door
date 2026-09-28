@@ -1,14 +1,33 @@
-import type { AgentStateType } from "../state.js";
+import type {
+  AgentStateType,
+} from "../state.js";
 
-import { classifyNode } from "./classify.node.js";
+import {
+  classifyNode,
+} from "./classify.node.js";
 
-import { academicNode } from "../../academic/academic.node.js";
-import { campusNode } from "../../campus/campus.node.js";
-import { generalNode } from "../../general/general.node.js";
+import {
+  academicNode,
+} from "../../academic/academic.node.js";
+
+import {
+  campusNode,
+} from "../../campus/campus.node.js";
+
+import {
+  generalNode,
+} from "../../general/general.node.js";
 
 export async function executeQuestionsNode(
   state: AgentStateType
 ) {
+
+  /*
+   * If analyzer produced multiple questions,
+   * process each one.
+   *
+   * Otherwise process the original question.
+   */
   const questions =
     state.questions?.length
       ? state.questions
@@ -16,18 +35,30 @@ export async function executeQuestionsNode(
 
   const results = [];
 
-  for (const question of questions) {
+  console.log(
+    `\n[Orchestrator] Total questions: ${questions.length}`
+  );
+
+  for (
+    const question of questions
+  ) {
+
     console.log(
       `\n[Orchestrator] Processing: ${question}`
     );
 
+    /*
+     * Classify the question.
+     */
     const classification =
       await classifyNode({
         ...state,
+
         question,
       });
 
-    const route = classification.route;
+    const route =
+      classification.route;
 
     if (!route) {
       throw new Error(
@@ -41,46 +72,72 @@ export async function executeQuestionsNode(
 
     let agentResult;
 
+    /*
+     * Execute the appropriate
+     * specialized agent.
+     */
     switch (route) {
+
       case "academic":
-        agentResult = await academicNode({
-          ...state,
-          question,
-          route,
-        });
+
+        agentResult =
+          await academicNode({
+            ...state,
+
+            question,
+
+            route,
+          });
+
         break;
 
       case "campus":
-        agentResult = await campusNode({
-          ...state,
-          question,
-          route,
-        });
+
+        agentResult =
+          await campusNode({
+            ...state,
+
+            question,
+
+            route,
+          });
+
         break;
 
       case "general":
-        agentResult = await generalNode({
-          ...state,
-          question,
-          route,
-        });
+
+        agentResult =
+          await generalNode({
+            ...state,
+
+            question,
+
+            route,
+          });
+
         break;
     }
 
     results.push({
       question,
+
       route,
+
       response:
-        typeof agentResult.response === "string"
+        typeof agentResult.response ===
+        "string"
           ? agentResult.response
           : JSON.stringify(
               agentResult.response
             ),
-      sources: agentResult.sources ?? [],
+
+      sources:
+        agentResult.sources ?? [],
     });
   }
 
   return {
-    questionResults: results,
+    questionResults:
+      results,
   };
 }

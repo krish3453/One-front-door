@@ -23,12 +23,14 @@ export async function chatController(
   req: Request,
   res: Response
 ) {
+
   const requestStart =
     Date.now();
 
   recordRequest();
 
   try {
+
     const {
       message,
       conversationId,
@@ -36,13 +38,17 @@ export async function chatController(
       req.body as ChatRequest;
 
     /*
-     * Validate request.
+     * --------------------------------------------------
+     * VALIDATE MESSAGE
+     * --------------------------------------------------
      */
+
     if (
       typeof message !==
         "string" ||
       message.trim().length === 0
     ) {
+
       console.log(
         "[API] BAD_REQUEST | message missing"
       );
@@ -55,27 +61,60 @@ export async function chatController(
       return;
     }
 
+    /*
+     * --------------------------------------------------
+     * GET AUTHENTICATED USER
+     * --------------------------------------------------
+     */
+
+    if (!req.user) {
+
+      res.status(401).json({
+        error:
+          "Authentication required.",
+      });
+
+      return;
+    }
+
+    const userId =
+      req.user.id;
+
     const normalizedMessage =
       message.trim();
 
     console.log(
-      `[API] REQUEST | ip=${
+      `[API] REQUEST | user=${userId} | ip=${
         req.ip || "unknown"
       } | question="${normalizedMessage}"`
     );
 
-    const result =
-      await processChat({
-        message:
-          normalizedMessage,
+    /*
+     * --------------------------------------------------
+     * PROCESS CHAT
+     * --------------------------------------------------
+     */
 
-        conversationId,
-      });
+    const result =
+      await processChat(
+        {
+          message:
+            normalizedMessage,
+
+          conversationId,
+        },
+
+        userId
+      );
 
     /*
-     * Record cache metrics.
+     * --------------------------------------------------
+     * CACHE METRICS
+     * --------------------------------------------------
      */
+
     if (result.cached) {
+
       recordCacheHit();
 
       console.log(
@@ -86,7 +125,9 @@ export async function chatController(
         "X-Cache",
         "HIT"
       );
+
     } else {
+
       recordCacheMiss();
 
       console.log(
@@ -98,8 +139,8 @@ export async function chatController(
           result.response.message.agent ??
           "unknown"
         } | sources=${
-          result.response.sources?.length ??
-          0
+          result.response.sources
+            ?.length ?? 0
         } | latency=${
           result.latencyMs
         }ms`
@@ -110,6 +151,12 @@ export async function chatController(
         "MISS"
       );
     }
+
+    /*
+     * --------------------------------------------------
+     * RESPONSE LATENCY
+     * --------------------------------------------------
+     */
 
     const totalLatency =
       Date.now() -
@@ -124,10 +171,18 @@ export async function chatController(
       `${totalLatency}ms`
     );
 
+    /*
+     * --------------------------------------------------
+     * SEND RESPONSE
+     * --------------------------------------------------
+     */
+
     res.json(
       result.response
     );
+
   } catch (error) {
+
     const latency =
       Date.now() -
       requestStart;
@@ -142,6 +197,29 @@ export async function chatController(
       `[API] ERROR | latency=${latency}ms`,
       error
     );
+
+    /*
+     * Handle conversation-not-found
+     * separately.
+     */
+    const statusCode =
+      (
+        error as {
+          statusCode?: number;
+        }
+      ).statusCode;
+
+    if (
+      statusCode === 404
+    ) {
+
+      res.status(404).json({
+        error:
+          "Conversation not found.",
+      });
+
+      return;
+    }
 
     res.status(500).json({
       error:

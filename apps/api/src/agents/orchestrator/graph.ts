@@ -7,8 +7,12 @@ import {
 import { AgentState } from "./state.js";
 
 import { analyzeNode } from "./node/analyze.node.js";
-import { executeQuestionsNode } from "./node/execute-questions.node.js";
-import { synthesizeNode } from "./node/synthesize.node.js";
+import {
+  executeQuestionsNode,
+} from "./node/execute-questions.node.js";
+import {
+  synthesizeNode,
+} from "./node/synthesize.node.js";
 
 const workflow =
   new StateGraph(AgentState)

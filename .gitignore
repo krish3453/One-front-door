@@ -10,3 +10,7 @@ coverage/
 .vscode/
 .DS_Store
 *.log
+
+# RAG data — PDFs and generated chunks (reproduce via rag:prepare + rag:ingest)
+data/documents/*.pdf
+data/processed/

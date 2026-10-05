@@ -6,6 +6,10 @@ import type {
   AgentStateType,
 } from "../state.js";
 
+import {
+  isContextualQuery,
+} from "../../../lib/cache.js";
+
 /*
  * --------------------------------------------------
  * ANALYZER RESULT
@@ -109,9 +113,27 @@ export async function analyzeNode(
 
   /*
    * ------------------------------------------------
-   * LLM ANALYSIS
+   * FAST PATH FOR STANDALONE SINGLE QUESTIONS
    * ------------------------------------------------
+   * If there are no contextual references (pronouns like
+   * "it", "its", "that") and only a single question without
+   * multi-topic conjunctions, we can bypass the LLM analyzer.
    */
+  const questionCount = (state.question.match(/\?/g) || []).length;
+  const hasMultiQuestionConjunction =
+    /\band\s+(also\s+)?(what|where|how|when|who|can|is|are|tell)\b/i.test(state.question);
+  const isContextual = isContextualQuery(state.question, state.history?.length ?? 0);
+
+  if (!isContextual && questionCount <= 1 && !hasMultiQuestionConjunction) {
+    console.log(
+      "[Analyzer] Fast-path: Standalone single question, bypassing LLM analysis"
+    );
+
+    return {
+      isMultiTopic: false,
+      questions: [state.question.trim()],
+    };
+  }
 
   const response =
     await llm.invoke([

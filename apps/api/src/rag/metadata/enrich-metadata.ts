@@ -26,7 +26,12 @@ export interface RAGMetadata {
 function getCourseCode(document: Document): string | undefined {
   const text = document.pageContent;
 
-  const match = text.match(/\bCSET\d{3}\b/i);
+  /*
+   * Match common university course-code patterns:
+   * CSET101, CSIT201, EECE301, LAWS101, BLAW201, MGMT301, etc.
+   * Pattern: 2-5 uppercase letters followed by 3-4 digits.
+   */
+  const match = text.match(/\b[A-Z]{2,5}\d{3,4}\b/);
 
   return match ? match[0].toUpperCase() : undefined;
 }

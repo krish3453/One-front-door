@@ -29,5 +29,9 @@ Rules:
    database values exactly.
 8. Do not claim that a location has an address, floor, building, opening
    hours, or other information when the database does not contain it.
+9. For questions regarding university policies, student discipline, code of conduct,
+   alcohol, smoking, drugs, breathalyzer, hostel rules, gate pass, curfew, fines,
+   or punishments, ALWAYS call the search_campus_rules_and_policies tool to retrieve
+   the official rules from the university handbook.
 `,
 });

@@ -37,6 +37,20 @@ function isSyllabusQuery(
     "what does the course cover",
     "what is covered",
     "course curriculum",
+    "curriculum",
+    "all courses",
+    "all the courses",
+    "list of courses",
+    "list courses",
+    "courses of",
+    "courses in",
+    "what are the courses",
+    "tell courses",
+    "course list",
+    "program structure",
+    "subjects in",
+    "subjects of",
+    "semester courses",
   ];
 
   return syllabusKeywords.some(
@@ -64,7 +78,7 @@ export async function academicNode(
   );
 
   /*
-   * Syllabus questions require substantially
+   * Syllabus and Curriculum questions require substantially
    * more context than normal questions.
    */
   const syllabusQuery =
@@ -74,13 +88,13 @@ export async function academicNode(
 
   const retrievalK =
     syllabusQuery
-      ? 25
+      ? 35
       : 5;
 
   console.log(
     `[Academic Agent] Query type: ${
       syllabusQuery
-        ? "SYLLABUS"
+        ? "SYLLABUS / CURRICULUM"
         : "NORMAL"
     }`
   );
@@ -90,7 +104,19 @@ export async function academicNode(
   );
 
   /*
-   * Retrieve documents.
+   * 1. CHECK STRUCTURED CURRICULUM CATALOG
+   * For broad catalog, degree curriculum, and course listing questions,
+   * structured catalog provides 100% complete and authoritative course lists.
+   */
+  const { queryStructuredCurriculum } = await import("../../rag/catalog/curriculum.service.js");
+  const structuredCatalog = await queryStructuredCurriculum(state.question);
+
+  if (structuredCatalog && structuredCatalog.matched) {
+    console.log(`[Academic Agent] Matched structured curriculum catalog: ${structuredCatalog.program} (${structuredCatalog.courses.length} courses)`);
+  }
+
+  /*
+   * Retrieve documents from vector store / local chunks.
    */
   const documents =
     await retrieveDocuments(
@@ -101,7 +127,7 @@ export async function academicNode(
     );
 
   if (
-    documents.length === 0
+    documents.length === 0 && !structuredCatalog
   ) {
 
     return {
@@ -189,7 +215,7 @@ export async function academicNode(
    * ------------------------------------------------
    */
 
-  const context =
+  const vectorContext =
     orderedDocuments
       .map(
         (
@@ -214,6 +240,10 @@ ${document.content}
       .join(
         "\n--------------------\n"
       );
+
+  const context = structuredCatalog
+    ? `=== AUTHORITATIVE STRUCTURED CURRICULUM CATALOG ===\n${structuredCatalog.summaryText}\n\n=== SUPPLEMENTAL DOCUMENT CHUNKS ===\n${vectorContext}`
+    : vectorContext;
 
   /*
    * ------------------------------------------------
@@ -284,6 +314,8 @@ IMPORTANT RULES:
 13. Only use information actually present
     in the university document context.
 
+14. When asked to list courses or curriculum for a program (such as B.Tech CSE or BBA LLB), list ALL courses present in the context grouped by Semester (Semester I through VIII, Specialization Electives) with their Course Code, Course Name, and Credits in a clean, structured table or bulleted list.
+
 University document context:
 
 ${context}
@@ -300,23 +332,57 @@ ${context}
 
   /*
    * ------------------------------------------------
-   * SOURCES
+   * SOURCES FILTERING & DEDUPLICATION
    * ------------------------------------------------
    */
 
-  const sources =
-    orderedDocuments.map(
-      (document) => ({
-        source:
-          document.source,
+  let sources: Array<{ source: string; page?: number; documentType: string }> = [];
 
-        page:
-          document.page,
+  if (structuredCatalog && structuredCatalog.matched) {
+    const targetDoc = structuredCatalog.degree?.includes("LL.B")
+      ? "BBA-LLB-Syllabus-2023-28.pdf"
+      : "BTech-CSE-Syllabus-2025-29.pdf";
 
-        documentType:
-          document.documentType,
-      })
-    );
+    // Keep only chunks matching the target program syllabus document
+    const matchingChunks = orderedDocuments.filter(d => d.source === targetDoc);
+    
+    if (matchingChunks.length > 0) {
+      const seenPages = new Set<string>();
+      for (const d of matchingChunks) {
+        const key = `${d.source}|${d.page ?? 1}`;
+        if (!seenPages.has(key)) {
+          seenPages.add(key);
+          sources.push({
+            source: d.source,
+            page: d.page,
+            documentType: "syllabus",
+          });
+        }
+        if (sources.length >= 3) break;
+      }
+    } else {
+      sources.push({
+        source: targetDoc,
+        page: 6,
+        documentType: "syllabus",
+      });
+    }
+  } else {
+    // Normal query: deduplicate sources and cap at top 4
+    const seenSources = new Set<string>();
+    for (const d of orderedDocuments) {
+      const key = `${d.source}|${d.page ?? ""}`;
+      if (!seenSources.has(key)) {
+        seenSources.add(key);
+        sources.push({
+          source: d.source,
+          page: d.page,
+          documentType: d.documentType,
+        });
+      }
+      if (sources.length >= 4) break;
+    }
+  }
 
   /*
    * ------------------------------------------------

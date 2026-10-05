@@ -11,6 +11,8 @@ function normalizeMessage(message: string): string {
   return message
     .trim()
     .toLowerCase()
+    .replace(/[?!.,;:]+$/g, "")
+    .trim()
     .replace(/\s+/g, " ");
 }
 
@@ -25,32 +27,51 @@ function createCacheKey(message: string): string {
   return `chat:${CACHE_VERSION}:${hash}`;
 }
 
+const CONTEXTUAL_PRONOUNS_REGEX =
+  /\b(it|its|this|that|these|those|there|they|them|same|previous|above|he|she|his|her|him)\b/i;
+
+export function isContextualQuery(
+  message: string,
+  historyLength: number = 0
+): boolean {
+  if (historyLength <= 1) {
+    return false;
+  }
+  return CONTEXTUAL_PRONOUNS_REGEX.test(message);
+}
+
+// In-memory fallback cache map for when Redis is offline
+const memoryCache = new Map<string, { data: string; expiresAt: number }>();
+
 export async function getCachedResponse<T>(
   message: string
 ): Promise<T | null> {
   const key = createCacheKey(message);
 
-  const cached = await redis.get(key);
-
-  if (!cached) {
-    console.log(`[Redis] Cache MISS: ${key}`);
-    return null;
-  }
-
-  console.log(`[Redis] Cache HIT: ${key}`);
-
+  // 1. Try Redis first
   try {
-    return JSON.parse(cached) as T;
+    const cached = await redis.get(key);
+
+    if (cached) {
+      console.log(`[Redis] Cache HIT: ${key}`);
+      return JSON.parse(cached) as T;
+    }
   } catch (error) {
-    console.error(
-      "[Redis] Invalid cached response:",
-      error
-    );
-
-    await redis.del(key);
-
-    return null;
+    // Redis offline - fall through to memory cache
   }
+
+  // 2. Check in-memory fallback cache
+  const mem = memoryCache.get(key);
+  if (mem) {
+    if (mem.expiresAt > Date.now()) {
+      console.log(`[MemoryCache] Cache HIT: ${key}`);
+      return JSON.parse(mem.data) as T;
+    }
+    memoryCache.delete(key);
+  }
+
+  console.log(`[Cache] Cache MISS: ${key}`);
+  return null;
 }
 
 export async function setCachedResponse<T>(
@@ -58,17 +79,78 @@ export async function setCachedResponse<T>(
   response: T
 ): Promise<void> {
   const key = createCacheKey(message);
+  const serialized = JSON.stringify(response);
 
-  await redis.set(
-    key,
-    JSON.stringify(response),
-    "EX",
-    CACHE_TTL_SECONDS
-  );
+  // 1. Save to Redis
+  try {
+    await redis.set(
+      key,
+      serialized,
+      "EX",
+      CACHE_TTL_SECONDS
+    );
 
-  console.log(
-    `[Redis] Cached response: ${key} | TTL=${CACHE_TTL_SECONDS}s`
-  );
+    console.log(
+      `[Redis] Cached response: ${key} | TTL=${CACHE_TTL_SECONDS}s`
+    );
+  } catch (error) {
+    // Redis offline - continue
+  }
+
+  // 2. Save to memory cache as fallback
+  memoryCache.set(key, {
+    data: serialized,
+    expiresAt: Date.now() + CACHE_TTL_SECONDS * 1000,
+  });
+}
+
+export async function getChatCache<T>(
+  message: string,
+  conversationId?: string,
+  historyLength: number = 0
+): Promise<{ data: T; key: string } | null> {
+  const isContextual = isContextualQuery(message, historyLength);
+
+  // 1. Check conversation-specific cache first
+  if (conversationId) {
+    const convKey = `conversation:${conversationId}:${message}`;
+    const cached = await getCachedResponse<T>(convKey);
+    if (cached) {
+      return { data: cached, key: convKey };
+    }
+  }
+
+  // 2. If question is standalone (not pronoun-dependent), check global cache
+  if (!isContextual) {
+    const globalKey = `global:${message}`;
+    const cached = await getCachedResponse<T>(globalKey);
+    if (cached) {
+      return { data: cached, key: globalKey };
+    }
+  }
+
+  return null;
+}
+
+export async function saveChatCache<T>(
+  message: string,
+  response: T,
+  conversationId?: string,
+  historyLength: number = 0
+): Promise<void> {
+  const isContextual = isContextualQuery(message, historyLength);
+
+  // Always cache under conversation key so repeated questions in the same conversation hit immediately
+  if (conversationId) {
+    const convKey = `conversation:${conversationId}:${message}`;
+    await setCachedResponse(convKey, response);
+  }
+
+  // If question is standalone (not pronoun-dependent), also cache globally
+  if (!isContextual) {
+    const globalKey = `global:${message}`;
+    await setCachedResponse(globalKey, response);
+  }
 }
 
 export async function deleteCachedResponse(

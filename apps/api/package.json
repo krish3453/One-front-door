@@ -13,9 +13,11 @@
     "chunk:test": "tsx src/rag/chunking/test-chunking.ts",
     "rag:ingest": "tsx src/rag/vectorstore/ingest.ts",
     "rag:prepare": "tsx src/rag/ingestion/prepare-rag.ts",
+    "rag:prepare-incremental": "tsx src/rag/ingestion/prepare-incremental.ts",
     "rag:retrieve": "tsx src/rag/retrieval/test-retriever.ts",
     "academic:test": "tsx src/agents/academic/test-academic.ts",
     "rag:migrate-metadata": "tsx src/rag/vectorstore/migrate-course-metadata.ts",
+    "rag:delete-syllabus": "tsx src/rag/vectorstore/delete-syllabus-chunks.ts",
     "cache:invalidate": "tsx src/db/invalidate-cache.ts"
   },
   "dependencies": {

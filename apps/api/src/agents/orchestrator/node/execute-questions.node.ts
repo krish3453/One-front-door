@@ -139,5 +139,9 @@ export async function executeQuestionsNode(
   return {
     questionResults:
       results,
+    route:
+      results.length === 1
+        ? results[0].route
+        : undefined,
   };
 }

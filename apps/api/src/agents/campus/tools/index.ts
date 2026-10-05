@@ -7,8 +7,27 @@ import { searchDining } from "./search-dining.js";
 import { getDiningHours } from "./get-dining-hours.js";
 import { searchCampusServices } from "./search-campus-services.js";
 import { getEmergencyContacts } from "./get-emergency-contacts.js";
+import { searchCampusRules } from "./search-campus-rules.js";
 
 export const campusTools = [
+  tool(
+    async ({ query }) => {
+      return JSON.stringify(await searchCampusRules(query));
+    },
+    {
+      name: "search_campus_rules_and_policies",
+      description:
+        "Search Bennett University official student discipline rules, code of conduct, policies (such as alcohol, smoking, drugs, breathalyzer, hostel curfew, ragging, gate pass, penalties, fines), and campus regulations.",
+      schema: z.object({
+        query: z
+          .string()
+          .describe(
+            "The specific rule, misconduct, policy, or conduct topic to search for"
+          ),
+      }),
+    }
+  ),
+
   tool(
     async ({ query }) => {
       return JSON.stringify(await searchLocations(query));

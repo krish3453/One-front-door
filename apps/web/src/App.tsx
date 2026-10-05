@@ -12,8 +12,14 @@ import type {
   ChatSource,
 } from "@one-front-door/shared-types";
 
-import { sendMessage } from "./services/api";
+import {
+  sendMessage,
+  getCurrentUser,
+  logout,
+  type AuthUser,
+} from "./services/api";
 
+import Login from "./Login";
 import "./App.css";
 
 interface UIMessage extends ChatMessage {
@@ -21,6 +27,16 @@ interface UIMessage extends ChatMessage {
 }
 
 function App() {
+  /*
+   * --------------------------------------------------
+   * AUTH STATE
+   * --------------------------------------------------
+   */
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [authChecking, setAuthChecking] = useState(true);
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [loggingOut, setLoggingOut] = useState(false);
+
   /*
    * --------------------------------------------------
    * STATE
@@ -36,21 +52,6 @@ function App() {
   const [loading, setLoading] =
     useState(false);
 
-  /*
-   * IMPORTANT:
-   *
-   * Keep the conversation ID in the frontend.
-   *
-   * This allows:
-   *
-   * User:
-   *   Where is the library?
-   *
-   * Then:
-   *   What are its timings?
-   *
-   * to use the SAME conversation.
-   */
   const [conversationId, setConversationId] =
     useState<string | undefined>(
       undefined
@@ -58,6 +59,55 @@ function App() {
 
   const messagesEndRef =
     useRef<HTMLDivElement>(null);
+
+  /*
+   * --------------------------------------------------
+   * AUTH CHECK ON INITIAL LOAD
+   * --------------------------------------------------
+   */
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorParam = urlParams.get("error");
+    if (errorParam) {
+      setAuthError(errorParam);
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    const checkAuth = async () => {
+      try {
+        const authData = await getCurrentUser();
+        if (authData.authenticated && authData.user) {
+          setUser(authData.user);
+        }
+      } catch (err) {
+        console.warn("[App] Auth status check:", err);
+      } finally {
+        setAuthChecking(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  /*
+   * --------------------------------------------------
+   * LOGOUT
+   * --------------------------------------------------
+   */
+  const handleLogout = async () => {
+    try {
+      setLoggingOut(true);
+      await logout();
+    } catch (err) {
+      console.error("[App] Logout error:", err);
+    } finally {
+      setUser(null);
+      setMessages([]);
+      setConversationId(undefined);
+      setInput("");
+      setLoggingOut(false);
+    }
+  };
 
   /*
    * --------------------------------------------------
@@ -196,6 +246,14 @@ function App() {
       ) {
         errorText =
           error.message;
+
+        if (
+          error.message.includes("Authentication required") ||
+          error.message.includes("401")
+        ) {
+          setUser(null);
+          return;
+        }
       }
 
       const errorMessage: UIMessage = {
@@ -243,12 +301,7 @@ function App() {
       setMessages([]);
 
       /*
-       * VERY IMPORTANT:
-       *
        * Reset conversation ID.
-       *
-       * Otherwise the next question would
-       * continue the old conversation.
        */
       setConversationId(
         undefined
@@ -279,10 +332,57 @@ function App() {
 
   /*
    * --------------------------------------------------
-   * RENDER
+   * RENDER: AUTH LOADING
    * --------------------------------------------------
    */
+  if (authChecking) {
+    return (
+      <div className="auth-loading-screen">
+        <div className="auth-loading-card">
+          <div className="auth-loading-logo">
+            <svg
+              className="login-logo-svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              <path d="M6 12v5c3 3 9 3 12 0v-5" />
+            </svg>
+          </div>
+          <div className="auth-loading-spinner" />
+          <p className="auth-loading-text">Verifying campus session...</p>
+        </div>
+      </div>
+    );
+  }
 
+  /*
+   * --------------------------------------------------
+   * RENDER: LOGIN PAGE
+   * --------------------------------------------------
+   */
+  if (!user) {
+    return (
+      <Login
+        onLoginSuccess={(authedUser) => {
+          setUser(authedUser);
+          setAuthError(null);
+        }}
+        authError={authError}
+        onClearError={() => setAuthError(null)}
+      />
+    );
+  }
+
+  /*
+   * --------------------------------------------------
+   * RENDER: AUTHENTICATED CHAT MENU
+   * --------------------------------------------------
+   */
   return (
     <div className="app">
 
@@ -294,31 +394,83 @@ function App() {
 
         <div className="header-inner">
 
-          <div>
-
-            <h1>
-              One Front Door
-            </h1>
-
-            <p>
-              University AI Assistant
-            </p>
-
+          <div className="header-brand">
+            <div className="header-logo-badge">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                <path d="M6 12v5c3 3 9 3 12 0v-5" />
+              </svg>
+            </div>
+            <div>
+              <h1>One Front Door</h1>
+              <p>University AI Assistant</p>
+            </div>
           </div>
 
-          {messages.length > 0 && (
+          <div className="header-actions">
+            {messages.length > 0 && (
+              <button
+                id="clear-chat-btn"
+                className="clear-button"
+                onClick={handleClearChat}
+                disabled={loading}
+              >
+                Clear chat
+              </button>
+            )}
+
+            <div className="user-profile-badge">
+              {user.image || user.picture ? (
+                <img
+                  src={user.image || user.picture}
+                  alt={user.name || "Student"}
+                  className="user-profile-avatar"
+                />
+              ) : (
+                <div className="user-profile-initial">
+                  {(user.name || user.email || "S").charAt(0).toUpperCase()}
+                </div>
+              )}
+              <div className="user-profile-info">
+                <span className="user-profile-name">
+                  {user.name || "Campus Student"}
+                </span>
+                <span className="user-profile-email">
+                  {user.email || "Active Session"}
+                </span>
+              </div>
+            </div>
+
             <button
-              className="clear-button"
-              onClick={
-                handleClearChat
-              }
-              disabled={
-                loading
-              }
+              id="logout-btn"
+              className="logout-button"
+              onClick={handleLogout}
+              disabled={loggingOut}
+              title="Sign out of One Front Door"
             >
-              Clear chat
+              <svg
+                className="logout-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              <span>{loggingOut ? "Signing out..." : "Sign Out"}</span>
             </button>
-          )}
+          </div>
 
         </div>
 

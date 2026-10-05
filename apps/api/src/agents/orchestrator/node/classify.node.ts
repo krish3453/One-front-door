@@ -80,34 +80,36 @@ Examples:
 
 2. campus
 
-Use "campus" when the question concerns
-physical campus facilities or student-life
-services.
+Use "campus" when the question concerns:
+a) University policies, student code of conduct, discipline rules, and campus regulations (alcohol policy, liquor, smoking, drugs, breathalyzer test, ragging, hostel curfew, gate pass, room inspection, misconduct, proctorial committee fines/punishments).
+b) Physical campus facilities or student-life services (library, hostel, cafeteria, food, sports, transportation, medical center, buildings, locations, offices, emergency contacts).
+c) Campus events, student clubs, security, and campus administration.
 
-Examples:
-- library
-- hostel
-- campus facilities
-- campus events
-- clubs
-- cafeteria
-- food
-- transportation
-- campus services
-- buildings
-- locations
-- offices
-- opening hours of campus facilities
+Examples of "campus":
+- student code of conduct & discipline rules
+- possession or consumption of alcohol / liquor on campus
+- breathalyzer test at main gate
+- smoking, tobacco, or illegal substance rules
+- hostel rules, curfew timings, room changes, gate pass
+- ragging and harassment policies
+- library, cafeteria, sports complex, gym, medical room
+- campus emergency contacts and security
 
 Examples:
 
 "Where is the library?"
 -> campus
 
-"What time does the library open?"
+"What is the code of conduct for drinking alcohol in university?"
 -> campus
 
-"Where is the hostel?"
+"What happens if a student is caught with alcohol in the hostel?"
+-> campus
+
+"What are the hostel curfew timings?"
+-> campus
+
+"Can security check my bag at the main gate?"
 -> campus
 
 "When does the cafeteria close?"
@@ -116,9 +118,12 @@ Examples:
 
 3. general
 
-Use "general" for everything else.
+Use "general" for non-university questions, general conceptual explanations, greetings, or broader topics outside university campus life and academics.
 
 Examples:
+
+"Hello"
+-> general
 
 "Explain recursion"
 -> general
@@ -138,17 +143,15 @@ IMPORTANT RULES:
 - Classify the CURRENT question.
 - The current question may already have been
   resolved from a previous conversation.
-- Do not classify based only on vague words.
-- If the question explicitly refers to a
-  university facility or campus service,
-  classify it as campus.
+- If the question concerns campus facilities, student life, university policies,
+  student code of conduct, discipline, alcohol, drugs, hostel rules, or campus safety,
+  ALWAYS classify it as "campus".
 - A general computer science concept is NOT
   academic unless it explicitly concerns the
   user's university course, subject, class,
   exam, assignment, or curriculum.
-- When uncertain between academic and general,
-  choose general unless there is explicit
-  university/course context.
+- When uncertain between academic and campus for university rules,
+  choose "campus" for conduct/discipline/hostel/facilities and "academic" for courses/grades/exams.
 
 Return ONLY the structured classification.
 `,

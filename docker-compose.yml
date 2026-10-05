@@ -1,0 +1,28 @@
+services:
+  # Vector Database for RAG
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: one_front_door_qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+  # Redis Cache & Session Store (matches REDIS_URL=redis://localhost:6380 in .env)
+  redis:
+    image: redis:alpine
+    container_name: one_front_door_redis
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # Note: Primary Database uses Cloud Neon DB PostgreSQL (no local container needed)
+
+volumes:
+  qdrant_data:
+  redis_data:
+

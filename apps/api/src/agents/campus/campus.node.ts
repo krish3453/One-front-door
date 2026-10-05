@@ -105,8 +105,49 @@ Do not invent university-specific information.
     `[Campus Agent] Response generated`
   );
 
+  /*
+   * --------------------------------------------------
+   * EXTRACT SOURCES (IF RETRIEVAL TOOL WAS USED)
+   * --------------------------------------------------
+   */
+  const sources: NonNullable<AgentStateType["sources"]> = [];
+
+  for (const msg of messages) {
+    if (
+      msg.name === "search_campus_rules_and_policies" &&
+      typeof msg.content === "string"
+    ) {
+      try {
+        const parsedDocs = JSON.parse(msg.content);
+        if (Array.isArray(parsedDocs)) {
+          for (const doc of parsedDocs) {
+            if (doc.source) {
+              sources.push({
+                source: doc.source,
+                page: doc.page,
+                documentType: doc.documentType || "discipline_rules",
+              });
+            }
+          }
+        }
+      } catch (err) {
+        // ignore parse errors
+      }
+    }
+  }
+
+  // Deduplicate sources
+  const uniqueSources = Array.from(
+    new Map(
+      sources.map((s) => [
+        `${s.source}|${s.page ?? ""}|${s.documentType}`,
+        s,
+      ])
+    ).values()
+  );
+
   return {
     response,
-    sources: [],
+    sources: uniqueSources,
   };
 }

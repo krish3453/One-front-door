@@ -1,6 +1,6 @@
 import {
-  getCachedResponse,
-  setCachedResponse,
+  getChatCache,
+  saveChatCache,
 } from "../lib/cache.js";
 
 import type {
@@ -41,46 +41,7 @@ function normalizeAgent(
   return undefined;
 }
 
-/*
- * --------------------------------------------------
- * NORMALIZE CACHE KEY
- * --------------------------------------------------
- *
- * Standalone questions can share cache entries.
- *
- * Follow-up questions include conversation context
- * so that:
- *
- * "What are its timings?"
- *
- * in two different conversations does not collide.
- */
 
-function buildCacheKey(
-  message: string,
-  conversationId: string,
-  historyLength: number
-): string {
-  const normalized =
-    message
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, " ");
-
-  /*
-   * If there is previous conversation history,
-   * make the cache conversation-specific.
-   */
-  if (historyLength > 1) {
-    return `conversation:${conversationId}:${normalized}`;
-  }
-
-  /*
-   * Standalone question.
-   * This can be shared globally.
-   */
-  return `global:${normalized}`;
-}
 
 /*
  * --------------------------------------------------
@@ -168,8 +129,7 @@ export async function processChat(
    * 2. SAVE USER MESSAGE
    * ------------------------------------------------
    */
-
-  await prisma.message.create({
+  const userMessage = await prisma.message.create({
     data: {
       conversationId,
       role: "user",
@@ -177,6 +137,7 @@ export async function processChat(
     },
   });
 
+  try {
   /*
    * ------------------------------------------------
    * 3. LOAD CONVERSATION HISTORY
@@ -228,36 +189,22 @@ export async function processChat(
 
   /*
    * ------------------------------------------------
-   * 4. BUILD CACHE KEY
+   * 4. CHECK MULTI-TIER REDIS CACHE
    * ------------------------------------------------
    */
 
-  const cacheKey =
-    buildCacheKey(
+  const cacheHit =
+    await getChatCache<ChatResponse>(
       normalizedMessage,
       conversationId,
       history.length
     );
 
-  console.log(
-    `[CACHE] Key=${cacheKey}`
-  );
-
-  /*
-   * ------------------------------------------------
-   * 5. CHECK REDIS
-   * ------------------------------------------------
-   */
-
-  const cachedResponse =
-    await getCachedResponse<ChatResponse>(
-      cacheKey
-    );
-
-  if (cachedResponse) {
+  if (cacheHit) {
+    const cachedResponse = cacheHit.data;
 
     console.log(
-      "[CHAT] Cache HIT"
+      `[CHAT] Cache HIT | key=${cacheHit.key}`
     );
 
     /*
@@ -520,14 +467,15 @@ export async function processChat(
    */
 
   try {
-
-    await setCachedResponse(
-      cacheKey,
-      response
+    await saveChatCache(
+      normalizedMessage,
+      response,
+      conversationId,
+      history.length
     );
 
     console.log(
-      `[CHAT] Response cached | key=${cacheKey}`
+      `[CHAT] Response cached for "${normalizedMessage}" (conv=${conversationId})`
     );
 
   } catch (error) {
@@ -557,11 +505,25 @@ export async function processChat(
     `[CHAT] Completed | conversation=${conversationId} | cached=false | latency=${latencyMs}ms`
   );
 
-  return {
-    response,
-
-    cached: false,
-
-    latencyMs,
-  };
+    return {
+      response,
+      cached: false,
+      latencyMs,
+    };
+  } catch (error) {
+    try {
+      await prisma.message.delete({
+        where: { id: userMessage.id },
+      });
+      console.log(
+        `[CHAT] Rolled back dangling user message ${userMessage.id} due to failure`
+      );
+    } catch (cleanupError) {
+      console.error(
+        "[CHAT] Failed to rollback dangling user message:",
+        cleanupError
+      );
+    }
+    throw error;
+  }
 }

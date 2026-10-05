@@ -25,7 +25,8 @@ const MAX_RATE_LIMIT_RETRIES = 2;
 
 const RATE_LIMIT_RETRY_DELAY_MS = 10_000;
 
-const START_BATCH = 90;
+const parsedStart = parseInt(String(process.env.START_BATCH || "1").replace(/[^0-9]/g, ""), 10);
+const START_BATCH = isNaN(parsedStart) || parsedStart < 1 ? 1 : parsedStart;
 
 const EXPECTED_VECTOR_SIZE = 3072;
 

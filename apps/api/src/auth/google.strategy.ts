@@ -21,30 +21,17 @@ const clientID = process.env.GOOGLE_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
 const callbackURL = process.env.GOOGLE_CALLBACK_URL;
 
-if (!clientID) {
-  throw new Error(
-    "GOOGLE_CLIENT_ID is not defined"
-  );
-}
+export const isGoogleAuthConfigured = Boolean(
+  clientID && clientSecret && callbackURL
+);
 
-if (!clientSecret) {
-  throw new Error(
-    "GOOGLE_CLIENT_SECRET is not defined"
-  );
-}
-
-if (!callbackURL) {
-  throw new Error(
-    "GOOGLE_CALLBACK_URL is not defined"
-  );
-}
-
-passport.use(
+if (isGoogleAuthConfigured) {
+  passport.use(
   new GoogleStrategy(
     {
-      clientID,
-      clientSecret,
-      callbackURL,
+      clientID: clientID as string,
+      clientSecret: clientSecret as string,
+      callbackURL: callbackURL as string,
     },
     async (
       _accessToken,
@@ -127,7 +114,12 @@ passport.use(
       }
     }
   )
-);
+  );
+} else {
+  console.warn(
+    "[Auth] Google OAuth is not configured. Demo login remains available."
+  );
+}
 
 /*
  * Serialize only the database user ID

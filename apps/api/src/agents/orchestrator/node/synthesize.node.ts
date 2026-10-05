@@ -30,6 +30,23 @@ export async function synthesizeNode(
   }
 
   /*
+   * Single question fast-path:
+   * If there is only 1 question result, the specialized agent has already generated
+   * a complete answer. Bypassing the synthesizer LLM call saves latency.
+   */
+  if (state.questionResults.length === 1) {
+    console.log(
+      "[Synthesizer] Fast-path: Single question result, bypassing synthesis LLM call"
+    );
+
+    return {
+      response: state.questionResults[0].response,
+      sources: state.questionResults[0].sources ?? [],
+      route: state.questionResults[0].route,
+    };
+  }
+
+  /*
    * Format specialized-agent
    * responses for the synthesizer.
    */
@@ -155,5 +172,10 @@ ${formattedResults}
 
     sources:
       uniqueSources,
+
+    route:
+      state.questionResults.length === 1
+        ? state.questionResults[0].route
+        : undefined,
   };
 }

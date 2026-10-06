@@ -14,3 +14,7 @@ coverage/
 # RAG data — PDFs and generated chunks (reproduce via rag:prepare + rag:ingest)
 data/documents/*.pdf
 data/processed/
+
+# AWS keys - NEVER commit
+*.pem
+deploy.tar.gz

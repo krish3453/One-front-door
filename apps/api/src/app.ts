@@ -13,6 +13,11 @@ import metricsRoutes from "./routes/metrics.routes.js";
 
 const app = express();
 
+app.set("trust proxy", 1);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
@@ -56,10 +61,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api/auth", authRouter);
-
-app.use(
-  express.json()
-);
 
 app.get("/", (_req, res) => {
   res.json({

@@ -3,25 +3,16 @@ import axios from "axios";
 import type {
   ChatRequest,
   ChatResponse,
+  StreamEvent,
 } from "@one-front-door/shared-types";
 
+const API_BASE = import.meta.env.VITE_API_URL || "/api";
+
 const api = axios.create({
-  baseURL:
-    "http://localhost:5000/api",
-
+  baseURL: API_BASE,
   headers: {
-    "Content-Type":
-      "application/json",
+    "Content-Type": "application/json",
   },
-
-  /*
-   * IMPORTANT
-   *
-   * Express session uses a cookie.
-   *
-   * This makes Axios send the session
-   * cookie with API requests.
-   */
   timeout: 120000,
   withCredentials: true,
 });
@@ -51,49 +42,30 @@ export interface AuthResponse {
  * --------------------------------------------------
  */
 
-export const getCurrentUser =
-  async (): Promise<AuthResponse> => {
-
-    try {
-
-      const response =
-        await api.get<AuthResponse>(
-          "/auth/me"
-        );
-
-      return response.data;
-
-    } catch (error) {
-
-      if (
-        axios.isAxiosError(error) &&
-        error.response?.status === 401
-      ) {
-        return {
-          authenticated: false,
-          user: null,
-        };
-      }
-
-      throw error;
+export const getCurrentUser = async (): Promise<AuthResponse> => {
+  try {
+    const response = await api.get<AuthResponse>("/auth/me");
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      return {
+        authenticated: false,
+        user: null,
+      };
     }
-  };
+    throw error;
+  }
+};
 
 /*
  * --------------------------------------------------
  * GOOGLE LOGIN
  * --------------------------------------------------
- *
- * OAuth starts by navigating the browser to
- * the backend endpoint.
  */
 
-export const loginWithGoogle =
-  () => {
-
-    window.location.href =
-      "http://localhost:5000/api/auth/google";
-  };
+export const loginWithGoogle = () => {
+  window.location.href = `${API_BASE}/auth/google`;
+};
 
 /*
  * --------------------------------------------------
@@ -101,16 +73,10 @@ export const loginWithGoogle =
  * --------------------------------------------------
  */
 
-export const loginDemo =
-  async (): Promise<AuthResponse> => {
-
-    const response =
-      await api.post<AuthResponse>(
-        "/auth/demo"
-      );
-
-    return response.data;
-  };
+export const loginDemo = async (): Promise<AuthResponse> => {
+  const response = await api.post<AuthResponse>("/auth/demo");
+  return response.data;
+};
 
 /*
  * --------------------------------------------------
@@ -118,13 +84,9 @@ export const loginDemo =
  * --------------------------------------------------
  */
 
-export const logout =
-  async (): Promise<void> => {
-
-    await api.post(
-      "/auth/logout"
-    );
-  };
+export const logout = async (): Promise<void> => {
+  await api.post("/auth/logout");
+};
 
 /*
  * --------------------------------------------------
@@ -132,99 +94,149 @@ export const logout =
  * --------------------------------------------------
  */
 
-export const healthCheck =
-  async () => {
-
-    const response =
-      await api.get(
-        "/health"
-      );
-
-    return response.data;
-  };
+export const healthCheck = async () => {
+  const response = await api.get("/health");
+  return response.data;
+};
 
 /*
  * --------------------------------------------------
- * SEND CHAT MESSAGE
+ * SEND CHAT MESSAGE (STANDARD REST)
  * --------------------------------------------------
  */
 
-export const sendMessage =
-  async (
-    request: ChatRequest
-  ): Promise<ChatResponse> => {
-
-    console.log(
-      "[Frontend] Sending message:",
-      {
-        message:
-          request.message,
-
-        conversationId:
-          request.conversationId ??
-          null,
-      }
-    );
-
-    try {
-
-      const response =
-        await api.post<ChatResponse>(
-          "/chat",
-          {
-            message:
-              request.message,
-
-            conversationId:
-              request.conversationId ??
-              undefined,
-          }
-        );
-
-      console.log(
-        "[Frontend] Received response:",
-        {
-          conversationId:
-            response.data
-              .conversationId,
-
-          agent:
-            response.data
-              .message?.agent,
-
-          sources:
-            response.data
-              .sources?.length ?? 0,
-        }
-      );
-
-      return response.data;
-
-    } catch (error) {
-
-      console.error(
-        "[Frontend] API error:",
-        error
-      );
-
-      if (
-        axios.isAxiosError(error)
-      ) {
-
-        const message =
-          error.response?.data?.error ??
-          error.response?.data?.message ??
-          error.message;
-
-        throw new Error(
-          message
-        );
-      }
-
-      throw new Error(
-        "Unable to connect to the chat server."
-      );
+export const sendMessage = async (
+  request: ChatRequest
+): Promise<ChatResponse> => {
+  try {
+    const response = await api.post<ChatResponse>("/chat", {
+      message: request.message,
+      conversationId: request.conversationId ?? undefined,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("[Frontend] API error:", error);
+    if (axios.isAxiosError(error)) {
+      const message =
+        error.response?.data?.error ??
+        error.response?.data?.message ??
+        error.message;
+      throw new Error(message);
     }
-  };
+    throw new Error("Unable to connect to the chat server.");
+  }
+};
+
+/*
+ * --------------------------------------------------
+ * STREAM CHAT MESSAGE (SSE STREAMING)
+ * --------------------------------------------------
+ */
+
+export interface StreamCallbacks {
+  onStep?: (event: Extract<StreamEvent, { type: "step" }>["step"]) => void;
+  onToken?: (delta: string) => void;
+  onAction?: (actionData: Extract<StreamEvent, { type: "action" }>["actionData"]) => void;
+  onSources?: (sources: Extract<StreamEvent, { type: "sources" }>["sources"]) => void;
+  onDone?: (response: ChatResponse) => void;
+  onError?: (error: string) => void;
+}
+
+export const streamChatMessage = async (
+  request: ChatRequest,
+  callbacks: StreamCallbacks
+): Promise<ChatResponse> => {
+  const response = await fetch(`${API_BASE}/chat/stream`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "text/event-stream",
+    },
+    credentials: "include",
+    body: JSON.stringify({
+      message: request.message,
+      conversationId: request.conversationId,
+    }),
+  });
+
+  if (!response.ok) {
+    let errorMessage = `Server error: ${response.status}`;
+    try {
+      const errJson = await response.json();
+      errorMessage = errJson.error || errorMessage;
+    } catch {
+      // fallback
+    }
+    throw new Error(errorMessage);
+  }
+
+  const reader = response.body?.getReader();
+  if (!reader) {
+    throw new Error("Response body is not readable.");
+  }
+
+  const decoder = new TextDecoder("utf-8");
+  let buffer = "";
+  let finalResponse: ChatResponse | null = null;
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split("\n");
+      buffer = lines.pop() ?? "";
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || !trimmed.startsWith("data:")) continue;
+
+        const jsonStr = trimmed.replace(/^data:\s*/, "");
+        if (!jsonStr) continue;
+
+        try {
+          const event: StreamEvent = JSON.parse(jsonStr);
+
+          if (event.type === "step" && callbacks.onStep) {
+            callbacks.onStep(event.step);
+          } else if (event.type === "token" && callbacks.onToken) {
+            callbacks.onToken(event.delta);
+          } else if (event.type === "action" && callbacks.onAction) {
+            callbacks.onAction(event.actionData);
+          } else if (event.type === "sources" && callbacks.onSources) {
+            callbacks.onSources(event.sources);
+          } else if (event.type === "done") {
+            finalResponse = event.response;
+            if (callbacks.onDone) {
+              callbacks.onDone(event.response);
+            }
+          } else if (event.type === "error" && callbacks.onError) {
+            callbacks.onError(event.error);
+          }
+        } catch (parseErr) {
+          console.warn("[SSE] Failed to parse stream event JSON:", parseErr);
+        }
+      }
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  if (!finalResponse) {
+    return {
+      conversationId: request.conversationId || crypto.randomUUID(),
+      message: {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        content: "",
+        createdAt: new Date().toISOString(),
+      },
+      sources: [],
+    };
+  }
+
+  return finalResponse;
+};
 
 export default api;

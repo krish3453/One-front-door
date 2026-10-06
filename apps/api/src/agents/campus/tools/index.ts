@@ -8,8 +8,69 @@ import { getDiningHours } from "./get-dining-hours.js";
 import { searchCampusServices } from "./search-campus-services.js";
 import { getEmergencyContacts } from "./get-emergency-contacts.js";
 import { searchCampusRules } from "./search-campus-rules.js";
+import { calculateAttendance } from "../../tools/attendance-calculator.js";
+import { generateAcademicPetition } from "../../tools/petition-generator.js";
 
 export const campusTools = [
+  tool(
+    async ({ attended, conducted, targetPercentage, subjectName }) => {
+      return JSON.stringify(
+        calculateAttendance({
+          attended,
+          conducted,
+          targetPercentage,
+          subjectName,
+        })
+      );
+    },
+    {
+      name: "calculate_attendance_and_bunk_planner",
+      description:
+        "Accurately calculate current student attendance percentage, safe classes remaining to bunk/skip while staying above the university minimum threshold (75%), and recovery plan if attendance is below 75%.",
+      schema: z.object({
+        attended: z.number().describe("Number of classes attended by the student"),
+        conducted: z.number().describe("Total number of classes conducted"),
+        targetPercentage: z.number().optional().describe("Target attendance percentage, default is 75"),
+        subjectName: z.string().optional().describe("Name or code of the course/subject"),
+      }),
+    }
+  ),
+
+  tool(
+    async ({ petitionType, reason, courseOrSubject, studentName, enrollmentNo, datesOrDetails }) => {
+      return JSON.stringify(
+        generateAcademicPetition({
+          petitionType,
+          reason,
+          courseOrSubject,
+          studentName,
+          enrollmentNo,
+          datesOrDetails,
+        })
+      );
+    },
+    {
+      name: "draft_formal_academic_petition",
+      description:
+        "Generate a formal, ready-to-submit university petition, makeup exam application, medical leave attendance condonation letter, course drop request, or hostel outpass letter with relevant regulations cited.",
+      schema: z.object({
+        petitionType: z.enum([
+          "medical_leave",
+          "makeup_exam",
+          "attendance_condonation",
+          "course_drop",
+          "hostel_leave",
+          "general",
+        ]).describe("Type of academic petition"),
+        reason: z.string().describe("Specific reason or context for the request"),
+        courseOrSubject: z.string().optional().describe("Course or subject name/code"),
+        studentName: z.string().optional().describe("Student's full name"),
+        enrollmentNo: z.string().optional().describe("Student enrollment number"),
+        datesOrDetails: z.string().optional().describe("Specific dates or duration of absence/leave"),
+      }),
+    }
+  ),
+
   tool(
     async ({ query }) => {
       return JSON.stringify(await searchCampusRules(query));

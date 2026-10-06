@@ -17,20 +17,11 @@ import {
   chunkDocuments,
 } from "../chunking/chunk-documents.js";
 
-const DOCUMENTS_DIR = path.resolve(
-  process.cwd(),
-  "../../data/documents"
-);
-
-const PROCESSED_DIR = path.resolve(
-  process.cwd(),
-  "../../data/processed"
-);
-
-const CHUNKS_FILE = path.join(
+import {
+  DOCUMENTS_DIR,
   PROCESSED_DIR,
-  "rag-chunks.json"
-);
+  CHUNKS_FILE,
+} from "../config/paths.js";
 
 const MIN_TEXT_LENGTH = 100;
 

@@ -1,16 +1,7 @@
-import type {
-  Request,
-  Response,
-} from "express";
 
-import type {
-  ChatRequest,
-} from "@one-front-door/shared-types";
-
-import {
-  processChat,
-} from "../services/chat.service.js";
-
+import type { Request, Response } from "express";
+import type { ChatRequest, StreamEvent } from "@one-front-door/shared-types";
+import { processChat, processChatStream } from "../services/chat.service.js";
 import {
   recordRequest,
   recordCacheHit,
@@ -19,211 +10,142 @@ import {
   recordLatency,
 } from "../lib/metrics.js";
 
-export async function chatController(
-  req: Request,
-  res: Response
-) {
+/*
+ * --------------------------------------------------
+ * STANDARD CHAT CONTROLLER (REST)
+ * --------------------------------------------------
+ */
 
-  const requestStart =
-    Date.now();
-
+export async function chatController(req: Request, res: Response) {
+  const requestStart = Date.now();
   recordRequest();
 
   try {
+    const { message, conversationId } = req.body as ChatRequest;
 
-    const {
-      message,
-      conversationId,
-    } =
-      req.body as ChatRequest;
-
-    /*
-     * --------------------------------------------------
-     * VALIDATE MESSAGE
-     * --------------------------------------------------
-     */
-
-    if (
-      typeof message !==
-        "string" ||
-      message.trim().length === 0
-    ) {
-
-      console.log(
-        "[API] BAD_REQUEST | message missing"
-      );
-
-      res.status(400).json({
-        error:
-          "Message is required.",
-      });
-
+    if (typeof message !== "string" || message.trim().length === 0) {
+      res.status(400).json({ error: "Message is required." });
       return;
     }
-
-    /*
-     * --------------------------------------------------
-     * GET AUTHENTICATED USER
-     * --------------------------------------------------
-     */
 
     if (!req.user) {
-
-      res.status(401).json({
-        error:
-          "Authentication required.",
-      });
-
+      res.status(401).json({ error: "Authentication required." });
       return;
     }
 
-    const userId =
-      req.user.id;
+    const userId = req.user.id;
+    const normalizedMessage = message.trim();
 
-    const normalizedMessage =
-      message.trim();
+    console.log(`[API] REQUEST | user=${userId} | question="${normalizedMessage}"`);
 
-    console.log(
-      `[API] REQUEST | user=${userId} | ip=${
-        req.ip || "unknown"
-      } | question="${normalizedMessage}"`
+    const result = await processChat(
+      { message: normalizedMessage, conversationId },
+      userId
     );
-
-    /*
-     * --------------------------------------------------
-     * PROCESS CHAT
-     * --------------------------------------------------
-     */
-
-    const result =
-      await processChat(
-        {
-          message:
-            normalizedMessage,
-
-          conversationId,
-        },
-
-        userId
-      );
-
-    /*
-     * --------------------------------------------------
-     * CACHE METRICS
-     * --------------------------------------------------
-     */
 
     if (result.cached) {
-
       recordCacheHit();
-
-      console.log(
-        `[API] CACHE_HIT | latency=${result.latencyMs}ms`
-      );
-
-      res.setHeader(
-        "X-Cache",
-        "HIT"
-      );
-
+      res.setHeader("X-Cache", "HIT");
     } else {
-
       recordCacheMiss();
-
-      console.log(
-        "[API] CACHE_MISS | executing graph"
-      );
-
-      console.log(
-        `[API] RESPONSE | route=${
-          result.response.message.agent ??
-          "unknown"
-        } | sources=${
-          result.response.sources
-            ?.length ?? 0
-        } | latency=${
-          result.latencyMs
-        }ms`
-      );
-
-      res.setHeader(
-        "X-Cache",
-        "MISS"
-      );
+      res.setHeader("X-Cache", "MISS");
     }
 
-    /*
-     * --------------------------------------------------
-     * RESPONSE LATENCY
-     * --------------------------------------------------
-     */
+    const totalLatency = Date.now() - requestStart;
+    recordLatency(totalLatency);
+    res.setHeader("X-Response-Time", `${totalLatency}ms`);
 
-    const totalLatency =
-      Date.now() -
-      requestStart;
-
-    recordLatency(
-      totalLatency
-    );
-
-    res.setHeader(
-      "X-Response-Time",
-      `${totalLatency}ms`
-    );
-
-    /*
-     * --------------------------------------------------
-     * SEND RESPONSE
-     * --------------------------------------------------
-     */
-
-    res.json(
-      result.response
-    );
-
+    res.json(result.response);
   } catch (error) {
-
-    const latency =
-      Date.now() -
-      requestStart;
-
+    const latency = Date.now() - requestStart;
     recordError();
+    recordLatency(latency);
+    console.error(`[API] ERROR | latency=${latency}ms`, error);
 
-    recordLatency(
-      latency
-    );
-
-    console.error(
-      `[API] ERROR | latency=${latency}ms`,
-      error
-    );
-
-    /*
-     * Handle conversation-not-found
-     * separately.
-     */
-    const statusCode =
-      (
-        error as {
-          statusCode?: number;
-        }
-      ).statusCode;
-
-    if (
-      statusCode === 404
-    ) {
-
-      res.status(404).json({
-        error:
-          "Conversation not found.",
-      });
-
+    const statusCode = (error as { statusCode?: number }).statusCode;
+    if (statusCode === 404) {
+      res.status(404).json({ error: "Conversation not found." });
       return;
     }
 
-    res.status(500).json({
-      error:
-        "Failed to process chat request.",
+    res.status(500).json({ error: "Failed to process chat request." });
+  }
+}
+
+/*
+ * --------------------------------------------------
+ * SSE STREAMING CHAT CONTROLLER
+ * --------------------------------------------------
+ */
+
+export async function chatStreamController(req: Request, res: Response) {
+  const requestStart = Date.now();
+  recordRequest();
+
+  const { message, conversationId } = req.body as ChatRequest;
+
+  if (typeof message !== "string" || message.trim().length === 0) {
+    res.status(400).json({ error: "Message is required." });
+    return;
+  }
+
+  if (!req.user) {
+    res.status(401).json({ error: "Authentication required." });
+    return;
+  }
+
+  const userId = req.user.id;
+  const normalizedMessage = message.trim();
+
+  // Set SSE Headers
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache, no-transform");
+  res.setHeader("Connection", "keep-alive");
+  res.setHeader("X-Accel-Buffering", "no");
+  res.flushHeaders?.();
+
+  const sendEvent = (event: StreamEvent) => {
+    try {
+      res.write(`data: ${JSON.stringify(event)}\n\n`);
+      if (typeof (res as any).flush === "function") {
+        (res as any).flush();
+      }
+    } catch (err) {
+      console.error("[SSE] Error writing stream event:", err);
+    }
+  };
+
+  try {
+    console.log(`[API-STREAM] START | user=${userId} | question="${normalizedMessage}"`);
+
+    const result = await processChatStream(
+      { message: normalizedMessage, conversationId },
+      userId,
+      sendEvent
+    );
+
+    if (result.cached) {
+      recordCacheHit();
+    } else {
+      recordCacheMiss();
+    }
+
+    const totalLatency = Date.now() - requestStart;
+    recordLatency(totalLatency);
+    console.log(`[API-STREAM] DONE | latency=${totalLatency}ms`);
+
+    res.end();
+  } catch (error) {
+    const latency = Date.now() - requestStart;
+    recordError();
+    recordLatency(latency);
+    console.error(`[API-STREAM] ERROR | latency=${latency}ms`, error);
+
+    sendEvent({
+      type: "error",
+      error: error instanceof Error ? error.message : "Failed to process streaming request.",
     });
+
+    res.end();
   }
 }

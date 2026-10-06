@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { chatController } from "../controllers/chat.controller.js";
+import { chatController, chatStreamController } from "../controllers/chat.controller.js";
 
 import {
   rateLimitMiddleware,
@@ -17,6 +17,13 @@ router.post(
   requireAuth,
   rateLimitMiddleware,
   chatController
+);
+
+router.post(
+  "/chat/stream",
+  requireAuth,
+  rateLimitMiddleware,
+  chatStreamController
 );
 
 export default router;

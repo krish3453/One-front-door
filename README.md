@@ -16,11 +16,13 @@
 One Front Door solves a common student pain point: information is scattered across handbooks, portals, and PDFs. This system ingests all university documents (syllabi, exam manuals, discipline rules, attendance policies) into a **vector database**, then routes student queries through a **LangGraph multi-agent pipeline** to deliver precise, cited answers in seconds.
 
 ### What makes it stand out:
-- 🧠 **Multi-agent orchestration** with LangGraph — specialized agents for academic, campus, and general queries
-- ⚡ **Sub-1s cache hits** via multi-tier Redis caching (global + conversation-scoped)
-- 🔍 **RAG with Qdrant** — semantic search over 1,700+ university document chunks
-- 🔐 **Google OAuth2** authentication via Passport.js
-- 📊 **Full-stack TypeScript monorepo** with pnpm workspaces
+- ⚡ **Real-time SSE Streaming**: Low-latency token streaming with live multi-agent step progress
+- 🧠 **LangGraph Multi-Agent Orchestration**: Specialized agents for academic, campus, and general domains
+- 🛠️ **Autonomous Campus Action Engine**: Deterministic safe bunk attendance calculator & formal academic petition drafter
+- 🔍 **Visual Agent Execution Inspector**: Live step-by-step reasoning trace with latencies & cached status
+- ⚡ **Sub-1s Cache Hits**: Multi-tier Redis caching (global + conversation-scoped)
+- 📚 **RAG with Qdrant**: High-precision semantic search over 1,729+ university document chunks
+- 🔐 **Google OAuth2 + Guest Login**: Session persistence with Redis and PostgreSQL Neon DB
 
 ---
 

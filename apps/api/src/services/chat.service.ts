@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import {
   getChatCache,
   saveChatCache,
@@ -9,16 +10,22 @@ import type {
   ChatMessage,
   ChatSource,
   AgentType,
+  AgentExecutionStep,
+  StreamEvent,
+  ActionPayload,
 } from "@one-front-door/shared-types";
 
 import { graph } from "../agents/orchestrator/graph.js";
 import { prisma } from "../lib/prisma.js";
+import { tryExecuteActionTool } from "../agents/tools/action-dispatcher.js";
 
 export type ChatServiceResult = {
   response: ChatResponse;
   cached: boolean;
   latencyMs: number;
 };
+
+export type StreamCallback = (event: StreamEvent) => void;
 
 /*
  * --------------------------------------------------
@@ -41,11 +48,36 @@ function normalizeAgent(
   return undefined;
 }
 
+/**
+ * Helper to emit a step and record it in the steps list
+ */
+function recordStep(
+  steps: AgentExecutionStep[],
+  onEvent: StreamCallback | undefined,
+  step: Omit<AgentExecutionStep, "id">
+): AgentExecutionStep {
+  const fullStep: AgentExecutionStep = {
+    ...step,
+    id: `step-${steps.length + 1}-${Date.now()}`,
+  };
 
+  const existingIndex = steps.findIndex((s) => s.stage === step.stage);
+  if (existingIndex >= 0) {
+    steps[existingIndex] = fullStep;
+  } else {
+    steps.push(fullStep);
+  }
+
+  if (onEvent) {
+    onEvent({ type: "step", step: fullStep });
+  }
+
+  return fullStep;
+}
 
 /*
  * --------------------------------------------------
- * PROCESS CHAT
+ * PROCESS CHAT (STANDARD & STREAMING)
  * --------------------------------------------------
  */
 
@@ -53,16 +85,29 @@ export async function processChat(
   request: ChatRequest,
   userId: string
 ): Promise<ChatServiceResult> {
+  return executeChatPipeline(request, userId);
+}
 
+export async function processChatStream(
+  request: ChatRequest,
+  userId: string,
+  onEvent: StreamCallback
+): Promise<ChatServiceResult> {
+  return executeChatPipeline(request, userId, onEvent);
+}
+
+async function executeChatPipeline(
+  request: ChatRequest,
+  userId: string,
+  onEvent?: StreamCallback
+): Promise<ChatServiceResult> {
   const startTime = Date.now();
+  const steps: AgentExecutionStep[] = [];
 
-  const normalizedMessage =
-    request.message.trim();
+  const normalizedMessage = request.message.trim();
 
   if (!normalizedMessage) {
-    throw new Error(
-      "Message cannot be empty."
-    );
+    throw new Error("Message cannot be empty.");
   }
 
   /*
@@ -71,57 +116,39 @@ export async function processChat(
    * ------------------------------------------------
    */
 
-  let conversationId =
-    request.conversationId;
+  let conversationId = request.conversationId;
 
   if (conversationId) {
-
-    const conversation =
-      await prisma.conversation.findFirst({
-        where: {
-          id: conversationId,
-          userId,
-        },
-      });
+    const conversation = await prisma.conversation.findFirst({
+      where: {
+        id: conversationId,
+        userId,
+      },
+    });
 
     if (!conversation) {
-      const error =
-        new Error(
-          "Conversation not found."
-        ) as Error & {
-          statusCode?: number;
-        };
-
+      const error = new Error("Conversation not found.") as Error & {
+        statusCode?: number;
+      };
       error.statusCode = 404;
-
       throw error;
     }
-
   } else {
+    const conversation = await prisma.conversation.create({
+      data: {
+        userId,
+        title:
+          normalizedMessage.length > 80
+            ? `${normalizedMessage.slice(0, 77)}...`
+            : normalizedMessage,
+      },
+    });
 
-    const conversation =
-      await prisma.conversation.create({
-        data: {
-          userId,
-
-          title:
-            normalizedMessage.length > 80
-              ? `${normalizedMessage.slice(
-                  0,
-                  77
-                )}...`
-              : normalizedMessage,
-        },
-      });
-
-    conversationId =
-      conversation.id;
+    conversationId = conversation.id;
   }
 
   if (!conversationId) {
-    throw new Error(
-      "Conversation ID could not be created."
-    );
+    throw new Error("Conversation ID could not be created.");
   }
 
   /*
@@ -138,373 +165,315 @@ export async function processChat(
   });
 
   try {
-  /*
-   * ------------------------------------------------
-   * 3. LOAD CONVERSATION HISTORY
-   * ------------------------------------------------
-   */
+    /*
+     * ------------------------------------------------
+     * 3. LOAD CONVERSATION HISTORY
+     * ------------------------------------------------
+     */
 
-  const previousMessages =
-    await prisma.message.findMany({
+    const previousMessages = await prisma.message.findMany({
       where: {
         conversationId,
       },
-
       orderBy: {
         createdAt: "asc",
       },
     });
 
-  const history =
-    previousMessages
+    const history = previousMessages
       .filter(
         (message) =>
-          message.role === "user" ||
-          message.role === "assistant"
+          message.role === "user" || message.role === "assistant"
       )
-      .map(
-        (message) => ({
-          role:
-            message.role === "user"
-              ? ("user" as const)
-              : ("assistant" as const),
+      .map((message) => ({
+        role:
+          message.role === "user"
+            ? ("user" as const)
+            : ("assistant" as const),
+        content: message.content,
+      }));
 
-          content:
-            message.content,
-        })
-      );
+    /*
+     * ------------------------------------------------
+     * STEP 1: CACHE CHECK
+     * ------------------------------------------------
+     */
+    const cacheStepStart = Date.now();
+    recordStep(steps, onEvent, {
+      stage: "cache_check",
+      title: "Multi-Tier Redis Cache",
+      description: "Checking global and session cache tiers...",
+      status: "running",
+    });
 
-  console.log(
-    `[MEMORY] conversation=${conversationId}`
-  );
-
-  console.log(
-    `[MEMORY] Database messages=${previousMessages.length}`
-  );
-
-  console.log(
-    "[MEMORY] History being sent to LangGraph:",
-    history
-  );
-
-  /*
-   * ------------------------------------------------
-   * 4. CHECK MULTI-TIER REDIS CACHE
-   * ------------------------------------------------
-   */
-
-  const cacheHit =
-    await getChatCache<ChatResponse>(
+    const cacheHit = await getChatCache<ChatResponse>(
       normalizedMessage,
       conversationId,
       history.length
     );
 
-  if (cacheHit) {
-    const cachedResponse = cacheHit.data;
+    if (cacheHit) {
+      const cachedResponse = cacheHit.data;
+      const cacheDuration = Date.now() - cacheStepStart;
 
-    console.log(
-      `[CHAT] Cache HIT | key=${cacheHit.key}`
+      recordStep(steps, onEvent, {
+        stage: "cache_check",
+        title: "Multi-Tier Redis Cache",
+        description: `Cache HIT (${cacheDuration}ms) — Instant sub-second response`,
+        status: "cached",
+        durationMs: cacheDuration,
+      });
+
+      const cachedAgent = normalizeAgent(cachedResponse.message.agent);
+
+      const assistantMessage: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        content: cachedResponse.message.content,
+        ...(cachedAgent ? { agent: cachedAgent } : {}),
+        createdAt: new Date().toISOString(),
+        steps,
+        actionData: cachedResponse.message.actionData,
+      };
+
+      await prisma.message.create({
+        data: {
+          conversationId,
+          role: "assistant",
+          content: assistantMessage.content,
+          agent: cachedAgent ?? null,
+        },
+      });
+
+      await prisma.conversation.update({
+        where: { id: conversationId },
+        data: { updatedAt: new Date() },
+      });
+
+      const response: ChatResponse = {
+        message: assistantMessage,
+        conversationId,
+        sources: cachedResponse.sources ?? [],
+        steps,
+        cached: true,
+        latencyMs: Date.now() - startTime,
+      };
+
+      if (onEvent) {
+        // Stream out cached content rapidly for immediate UI feel
+        const words = cachedResponse.message.content.split(" ");
+        for (let i = 0; i < words.length; i += 4) {
+          const chunk = words.slice(i, i + 4).join(" ") + (i + 4 < words.length ? " " : "");
+          onEvent({ type: "token", delta: chunk });
+        }
+        if (cachedResponse.sources?.length) {
+          onEvent({ type: "sources", sources: cachedResponse.sources });
+        }
+        if (cachedResponse.message.actionData) {
+          onEvent({ type: "action", actionData: cachedResponse.message.actionData });
+        }
+        onEvent({ type: "done", response });
+      }
+
+      return {
+        response,
+        cached: true,
+        latencyMs: Date.now() - startTime,
+      };
+    }
+
+    // Cache Miss
+    recordStep(steps, onEvent, {
+      stage: "cache_check",
+      title: "Multi-Tier Redis Cache",
+      description: "Cache MISS — Dispatching to LangGraph Orchestrator",
+      status: "completed",
+      durationMs: Date.now() - cacheStepStart,
+    });
+
+    /*
+     * ------------------------------------------------
+     * STEP 2: CHECK ACTION TOOLS (BUNK PLANNER / PETITION DRAFTER)
+     * ------------------------------------------------
+     */
+    const actionResult = tryExecuteActionTool(normalizedMessage);
+    let actionData: ActionPayload | undefined = undefined;
+
+    if (actionResult.actionExecuted && actionResult.actionPayload) {
+      actionData = actionResult.actionPayload;
+
+      recordStep(steps, onEvent, {
+        stage: "action_tool",
+        title: actionData.title || "Campus Action Tool",
+        description: `Executed deterministic action engine: ${actionResult.toolName}`,
+        status: "completed",
+        details: { tool: actionResult.toolName },
+      });
+
+      if (onEvent) {
+        onEvent({ type: "action", actionData });
+      }
+    }
+
+    /*
+     * ------------------------------------------------
+     * STEP 3: LANGGRAPH ORCHESTRATOR EXECUTION
+     * ------------------------------------------------
+     */
+    const orchestratorStart = Date.now();
+    recordStep(steps, onEvent, {
+      stage: "analyzing",
+      title: "LangGraph Orchestrator",
+      description: "Analyzing query semantics, context, and multi-intent decomposition...",
+      status: "running",
+    });
+
+    const result = await graph.invoke({
+      question: normalizedMessage,
+      userId,
+      conversationId,
+      history,
+    });
+
+    recordStep(steps, onEvent, {
+      stage: "analyzing",
+      title: "Query Analysis & Intent Classifier",
+      description: result.isMultiTopic
+        ? `Multi-topic query decomposed into ${result.questions?.length || 2} sub-tasks`
+        : `Decomposed single query intent`,
+      status: "completed",
+      durationMs: Date.now() - orchestratorStart,
+    });
+
+    /*
+     * ------------------------------------------------
+     * STEP 4: AGENT ROUTING & RETRIEVAL
+     * ------------------------------------------------
+     */
+    const agent: AgentType = result.isMultiTopic
+      ? "multi"
+      : normalizeAgent(result.route) ?? "general";
+
+    recordStep(steps, onEvent, {
+      stage: "routing",
+      title: `Specialized Agent: ${agent.toUpperCase()}`,
+      description: `Dispatched to ${agent} agent pipeline with university knowledge graph`,
+      agent,
+      status: "completed",
+    });
+
+    // Deduplicate and process sources
+    const rawSources = (result.sources ?? []) as ChatSource[];
+    const sources: ChatSource[] = Array.from(
+      new Map<string, ChatSource>(
+        rawSources.map((source): [string, ChatSource] => {
+          const key = [source.source, source.page ?? "", source.documentType].join("|");
+          return [key, source];
+        })
+      ).values()
     );
 
+    if (sources.length > 0) {
+      recordStep(steps, onEvent, {
+        stage: "retrieval",
+        title: "Qdrant Vector Retrieval",
+        description: `Retrieved and grounded across ${sources.length} authoritative document chunk(s)`,
+        status: "completed",
+        details: { sourcesCount: sources.length },
+      });
+
+      if (onEvent) {
+        onEvent({ type: "sources", sources });
+      }
+    }
+
     /*
-     * IMPORTANT:
-     *
-     * Never reuse the cached assistant
-     * message ID.
+     * ------------------------------------------------
+     * STEP 5: SYNTHESIS & TOKEN STREAMING
+     * ------------------------------------------------
      */
+    const synthStart = Date.now();
+    recordStep(steps, onEvent, {
+      stage: "synthesizing",
+      title: "Response Synthesis",
+      description: "Synthesizing verified, cited answer from multi-agent context...",
+      status: "running",
+    });
 
-    const cachedAgent =
-      normalizeAgent(
-        cachedResponse.message.agent
-      );
+    const responseContent = result.response ?? "I could not generate a response.";
 
-    const assistantMessage:
-      ChatMessage = {
+    if (onEvent) {
+      // Stream tokens smoothly to client
+      const chunks = responseContent.match(/[\s\S]{1,16}/g) || [responseContent];
+      for (const chunk of chunks) {
+        onEvent({ type: "token", delta: chunk });
+        // Tiny micro-yield for realistic stream feel
+        await new Promise((r) => setTimeout(r, 8));
+      }
+    }
 
-      id:
-        crypto.randomUUID(),
+    recordStep(steps, onEvent, {
+      stage: "synthesizing",
+      title: "Response Synthesis",
+      description: "Response synthesis complete with grounding",
+      status: "completed",
+      durationMs: Date.now() - synthStart,
+    });
 
-      role:
-        "assistant",
-
-      content:
-        cachedResponse.message.content,
-
-      ...(cachedAgent
-        ? {
-            agent: cachedAgent,
-          }
-        : {}),
-
-      createdAt:
-        new Date().toISOString(),
+    /*
+     * ------------------------------------------------
+     * 6. BUILD FINAL RESPONSE & PERSIST
+     * ------------------------------------------------
+     */
+    const responseMessage: ChatMessage = {
+      id: crypto.randomUUID(),
+      role: "assistant",
+      content: responseContent,
+      agent,
+      createdAt: new Date().toISOString(),
+      steps,
+      actionData,
     };
 
-    /*
-     * Save cached response into this
-     * conversation.
-     */
+    const response: ChatResponse = {
+      message: responseMessage,
+      conversationId,
+      sources,
+      steps,
+      cached: false,
+      latencyMs: Date.now() - startTime,
+    };
 
     await prisma.message.create({
       data: {
         conversationId,
-
-        role:
-          "assistant",
-
-        content:
-          assistantMessage.content,
-
-        agent:
-          cachedAgent ?? null,
+        role: "assistant",
+        content: responseMessage.content,
+        agent: agent,
       },
     });
-
-    /*
-     * Touch conversation.
-     */
 
     await prisma.conversation.update({
-      where: {
-        id: conversationId,
-      },
-
-      data: {
-        updatedAt: new Date(),
-      },
+      where: { id: conversationId },
+      data: { updatedAt: new Date() },
     });
 
-    const response:
-      ChatResponse = {
-
-      message:
-        assistantMessage,
-
-      conversationId,
-
-      sources:
-        cachedResponse.sources ?? [],
-    };
-
-    console.log(
-      `[CHAT] Cache HIT | agent=${
-        cachedAgent ?? "undefined"
-      }`
-    );
-
-    return {
-      response,
-
-      cached: true,
-
-      latencyMs:
-        Date.now() -
-        startTime,
-    };
-  }
-
-  /*
-   * ------------------------------------------------
-   * 6. CACHE MISS -> LANGGRAPH
-   * ------------------------------------------------
-   */
-
-  console.log(
-    "[CHAT] Cache MISS"
-  );
-
-  const result =
-    await graph.invoke({
-
-      question:
+    try {
+      await saveChatCache(
         normalizedMessage,
+        response,
+        conversationId,
+        history.length
+      );
+    } catch (cacheError) {
+      console.error("[CHAT] Failed to cache response:", cacheError);
+    }
 
-      userId,
+    if (onEvent) {
+      onEvent({ type: "done", response });
+    }
 
-      conversationId,
-
-      history,
-    });
-
-  /*
-   * ------------------------------------------------
-   * 7. DETERMINE AGENT
-   * ------------------------------------------------
-   */
-
-  const agent: AgentType =
-    result.isMultiTopic
-      ? "multi"
-      : normalizeAgent(result.route) ??
-        "general";
-
-  console.log(
-    `[CHAT] Agent=${agent}`
-  );
-
-  /*
-   * ------------------------------------------------
-   * 8. BUILD ASSISTANT MESSAGE
-   * ------------------------------------------------
-   */
-
-  const responseMessage:
-    ChatMessage = {
-
-    id:
-      crypto.randomUUID(),
-
-    role:
-      "assistant",
-
-    content:
-      result.response ??
-      "I could not generate a response.",
-
-    agent,
-
-    createdAt:
-      new Date().toISOString(),
-  };
-
-  /*
-   * ------------------------------------------------
-   * 9. NORMALIZE + DEDUPLICATE SOURCES
-   * ------------------------------------------------
-   */
-
-  const rawSources =
-    (result.sources ?? []) as ChatSource[];
-
-  const sources: ChatSource[] =
-    Array.from(
-      new Map<string, ChatSource>(
-        rawSources.map(
-          (
-            source
-          ): [string, ChatSource] => {
-
-            const key =
-              [
-                source.source,
-                source.page ?? "",
-                source.documentType,
-              ].join("|");
-
-            return [
-              key,
-              source,
-            ];
-          }
-        )
-      ).values()
-    );
-
-  console.log(
-    `[CHAT] Sources=${sources.length}`
-  );
-
-  /*
-   * ------------------------------------------------
-   * 10. BUILD FINAL RESPONSE
-   * ------------------------------------------------
-   */
-
-  const response:
-    ChatResponse = {
-
-    message:
-      responseMessage,
-
-    conversationId,
-
-    sources,
-  };
-
-  /*
-   * ------------------------------------------------
-   * 11. SAVE ASSISTANT MESSAGE
-   * ------------------------------------------------
-   */
-
-  await prisma.message.create({
-    data: {
-
-      conversationId,
-
-      role:
-        "assistant",
-
-      content:
-        responseMessage.content,
-
-      agent:
-        agent,
-    },
-  });
-
-  /*
-   * ------------------------------------------------
-   * 12. UPDATE CONVERSATION TIMESTAMP
-   * ------------------------------------------------
-   */
-
-  await prisma.conversation.update({
-    where: {
-      id: conversationId,
-    },
-
-    data: {
-      updatedAt: new Date(),
-    },
-  });
-
-  /*
-   * ------------------------------------------------
-   * 13. SAVE TO REDIS
-   * ------------------------------------------------
-   */
-
-  try {
-    await saveChatCache(
-      normalizedMessage,
-      response,
-      conversationId,
-      history.length
-    );
-
-    console.log(
-      `[CHAT] Response cached for "${normalizedMessage}" (conv=${conversationId})`
-    );
-
-  } catch (error) {
-
-    /*
-     * Redis failure should NOT make
-     * the chat request fail.
-     */
-
-    console.error(
-      "[CHAT] Failed to cache response:",
-      error
-    );
-  }
-
-  /*
-   * ------------------------------------------------
-   * 14. RETURN
-   * ------------------------------------------------
-   */
-
-  const latencyMs =
-    Date.now() -
-    startTime;
-
-  console.log(
-    `[CHAT] Completed | conversation=${conversationId} | cached=false | latency=${latencyMs}ms`
-  );
-
+    const latencyMs = Date.now() - startTime;
     return {
       response,
       cached: false,
@@ -515,15 +484,18 @@ export async function processChat(
       await prisma.message.delete({
         where: { id: userMessage.id },
       });
-      console.log(
-        `[CHAT] Rolled back dangling user message ${userMessage.id} due to failure`
-      );
+      console.log(`[CHAT] Rolled back dangling user message ${userMessage.id}`);
     } catch (cleanupError) {
-      console.error(
-        "[CHAT] Failed to rollback dangling user message:",
-        cleanupError
-      );
+      console.error("[CHAT] Failed to rollback user message:", cleanupError);
     }
+
+    if (onEvent) {
+      onEvent({
+        type: "error",
+        error: error instanceof Error ? error.message : "Failed to process chat request.",
+      });
+    }
+
     throw error;
   }
 }

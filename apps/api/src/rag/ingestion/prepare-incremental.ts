@@ -108,7 +108,7 @@ async function loadExistingChunks(): Promise<Document[]> {
 
 
 async function main(): Promise<void> {
-  const fileArgs = process.argv.slice(2);
+  const fileArgs = process.argv.slice(2).filter((arg) => arg !== "--");
 
   if (fileArgs.length === 0) {
     console.error(

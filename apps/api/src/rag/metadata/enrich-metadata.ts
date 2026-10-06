@@ -7,6 +7,7 @@ export type DocumentType =
   | "examination_manual"
   | "attendance_notification"
   | "discipline_rules"
+  | "campus_life"          // <--- Add this
   | "brochure"
   | "unknown";
 
@@ -68,10 +69,42 @@ function getDocumentType(
   }
 
   if (
+    normalized.includes("mess") ||
+    normalized.includes("dining") ||
+    normalized.includes("food")
+  ) {
+    return "campus_life";
+  }
+
+
+  if (
     normalized.includes("brochure")
   ) {
     return "brochure";
   }
+
+  if (
+    normalized.includes("club") ||
+    normalized.includes("student") ||
+    normalized.includes("council") ||
+    normalized.includes("uphoria") ||
+    normalized.includes("affairs")
+  ) {
+    return "campus_life";
+  }
+
+  if (
+  normalized.includes("mess") ||
+  normalized.includes("dining") ||
+  normalized.includes("food") ||
+  normalized.includes("map") ||
+  normalized.includes("navigation") ||
+  normalized.includes("outlet") ||
+  normalized.includes("location")
+) {
+  return "campus_life";
+}
+
 
   return "unknown";
 }
@@ -129,13 +162,13 @@ export function enrichDocumentMetadata(
 
   const source = path.basename(sourcePath);
 
-const metadata: RAGMetadata = {
-  source,
-  page: getPageNumber(document),
-  documentType: getDocumentType(source),
-  extractionMethod: getExtractionMethod(document),
-  courseCode: getCourseCode(document),
-};
+  const metadata: RAGMetadata = {
+    source,
+    page: getPageNumber(document),
+    documentType: getDocumentType(source),
+    extractionMethod: getExtractionMethod(document),
+    courseCode: getCourseCode(document),
+  };
 
   return new Document({
     pageContent: document.pageContent,

@@ -31,7 +31,11 @@ Rules:
    hours, or other information when the database does not contain it.
 9. For questions regarding university policies, student discipline, code of conduct,
    alcohol, smoking, drugs, breathalyzer, hostel rules, gate pass, curfew, fines,
-   or punishments, ALWAYS call the search_campus_rules_and_policies tool to retrieve
-   the official rules from the university handbook.
+   mess and dining system (meal timings, day scholar pricing, buffet rules, QR scanning, floor structure),
+   campus map, navigation routes (e.g. from gates to buildings, building-to-building, hostels),
+   hostel infrastructure (floors, dedicated lifts for C1-C12 and D1-D6, ID card blue/red strips),
+   food outlets (Quench, Maggi Hotspot, Snap Eats, Infinity Kitchen/Kathi, Green Nox, Tuck Shop, Food Street, 24-hour options),
+   Student Council (BUSC), student clubs, Dean of Student Affairs (DSA), or campus fests (Uphoria),
+   ALWAYS call the search_campus_rules_and_policies tool to retrieve the official verified information from the knowledge base.
 `,
 });

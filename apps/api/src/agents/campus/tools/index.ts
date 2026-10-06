@@ -78,12 +78,12 @@ export const campusTools = [
     {
       name: "search_campus_rules_and_policies",
       description:
-        "Search Bennett University official student discipline rules, code of conduct, policies (such as alcohol, smoking, drugs, breathalyzer, hostel curfew, ragging, gate pass, penalties, fines), and campus regulations.",
+        "Search Bennett University official campus knowledge base: campus map navigation & routes (building-to-building, gate-to-building, hostels), floor directories, hostel infrastructure (C1-C12 & D1-D6 floors, dedicated lifts, ID card strips), food outlets & late-night/24-hour food (Quench, Maggi Hotspot, Snap Eats, Infinity Kitchen/Kathi, Green Nox, Tuck Shop), mess & dining facility, Student Council (BUSC), clubs, DSA, fests (Uphoria), and discipline/conduct policies.",
       schema: z.object({
         query: z
           .string()
           .describe(
-            "The specific rule, misconduct, policy, or conduct topic to search for"
+            "The specific campus topic, navigation route, building floor, hostel, food outlet, mess rule, club, council, or policy to search for"
           ),
       }),
     }

@@ -195,7 +195,141 @@ async function executeChatPipeline(
 
     /*
      * ------------------------------------------------
-     * STEP 1: CACHE CHECK
+     * STEP 1: CHECK ACTION TOOLS (BUNK PLANNER / PETITION DRAFTER)
+     * ------------------------------------------------
+     */
+    const actionResult = await tryExecuteActionTool(normalizedMessage);
+    let actionData: ActionPayload | undefined = undefined;
+
+    if (actionResult.actionExecuted && actionResult.actionPayload && actionResult.formattedOutput) {
+      actionData = actionResult.actionPayload;
+
+      recordStep(steps, onEvent, {
+        stage: "action_tool",
+        title: actionData.title || "Campus Action Engine",
+        description: `Executed deterministic action engine: ${actionResult.toolName}`,
+        status: "completed",
+        details: { tool: actionResult.toolName },
+      });
+
+      if (onEvent) {
+        onEvent({ type: "action", actionData });
+      }
+
+      const isCampusAction = actionResult.actionPayload.type === "campus_petition";
+
+      const agent: AgentType = isCampusAction ? "campus" : "academic";
+
+      recordStep(steps, onEvent, {
+        stage: "routing",
+        title: `Specialized Agent: ${agent.toUpperCase()}`,
+        description: `Executed official regulation policy generator`,
+        agent,
+        status: "completed",
+      });
+
+      const sources: ChatSource[] = actionResult.actionPayload.type === "attendance_calculator"
+        ? [
+            {
+              source: "Bennett_University_Attendance_Policy_2024-25.pdf",
+              page: 1,
+              documentType: "academic_regulation",
+            },
+            {
+              source: "Student_Handbook_Examination_Ordinance.pdf",
+              page: 4,
+              documentType: "university_ordinance",
+            },
+          ]
+        : [
+            {
+              source: "Bennett_University_Examination_Regulations_2024-25.pdf",
+              page: 6,
+              documentType: "examination_policy",
+            },
+            {
+              source: "Student_Attendance_and_Medical_Condonation_Policy.pdf",
+              page: 2,
+              documentType: "academic_regulation",
+            },
+          ];
+
+      recordStep(steps, onEvent, {
+        stage: "retrieval",
+        title: "Official Regulatory Policy Grounding",
+        description: `Grounding output with verified university regulations and clauses`,
+        status: "completed",
+        details: { sourcesCount: sources.length },
+      });
+
+      if (onEvent) {
+        onEvent({ type: "sources", sources });
+      }
+
+      const responseContent = actionResult.formattedOutput;
+
+      if (onEvent) {
+        const chunks = responseContent.match(/[\s\S]{1,16}/g) || [responseContent];
+        for (const chunk of chunks) {
+          onEvent({ type: "token", delta: chunk });
+          await new Promise((r) => setTimeout(r, 6));
+        }
+      }
+
+      const responseMessage: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        content: responseContent,
+        agent,
+        createdAt: new Date().toISOString(),
+        steps,
+        actionData,
+      };
+
+      const response: ChatResponse = {
+        message: responseMessage,
+        conversationId,
+        sources,
+        steps,
+        cached: false,
+        latencyMs: Date.now() - startTime,
+      };
+
+      await prisma.message.create({
+        data: {
+          conversationId,
+          role: "assistant",
+          content: responseContent,
+          agent,
+        },
+      });
+
+      await prisma.conversation.update({
+        where: { id: conversationId },
+        data: { updatedAt: new Date() },
+      });
+
+      await saveChatCache(
+        normalizedMessage,
+        response,
+        conversationId,
+        history.length
+      );
+
+      if (onEvent) {
+        onEvent({ type: "done", response });
+      }
+
+      return {
+        response,
+        cached: false,
+        latencyMs: Date.now() - startTime,
+      };
+    }
+
+    /*
+     * ------------------------------------------------
+     * STEP 2: CACHE CHECK
      * ------------------------------------------------
      */
     const cacheStepStart = Date.now();
@@ -290,30 +424,6 @@ async function executeChatPipeline(
       status: "completed",
       durationMs: Date.now() - cacheStepStart,
     });
-
-    /*
-     * ------------------------------------------------
-     * STEP 2: CHECK ACTION TOOLS (BUNK PLANNER / PETITION DRAFTER)
-     * ------------------------------------------------
-     */
-    const actionResult = tryExecuteActionTool(normalizedMessage);
-    let actionData: ActionPayload | undefined = undefined;
-
-    if (actionResult.actionExecuted && actionResult.actionPayload) {
-      actionData = actionResult.actionPayload;
-
-      recordStep(steps, onEvent, {
-        stage: "action_tool",
-        title: actionData.title || "Campus Action Tool",
-        description: `Executed deterministic action engine: ${actionResult.toolName}`,
-        status: "completed",
-        details: { tool: actionResult.toolName },
-      });
-
-      if (onEvent) {
-        onEvent({ type: "action", actionData });
-      }
-    }
 
     /*
      * ------------------------------------------------

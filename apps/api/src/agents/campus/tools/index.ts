@@ -10,8 +10,177 @@ import { getEmergencyContacts } from "./get-emergency-contacts.js";
 import { searchCampusRules } from "./search-campus-rules.js";
 import { calculateAttendance } from "../../tools/attendance-calculator.js";
 import { generateAcademicPetition } from "../../tools/petition-generator.js";
+import {
+  searchMenuItems,
+  compareDishes,
+  getOutletDetails,
+  getAllOutlets,
+} from "../../../rag/catalog/food-catalog.service.js";
+import {
+  queryMessMenu,
+  searchMessDishSchedule,
+  MESS_FACILITY_INFO,
+} from "../../../rag/catalog/mess-menu.service.js";
 
 export const campusTools = [
+  tool(
+    async ({ day, meal, weekCycle, dishQuery }) => {
+      if (dishQuery) {
+        const dishSchedule = searchMessDishSchedule(dishQuery);
+        return JSON.stringify({
+          queryType: "dish_schedule_search",
+          ...dishSchedule,
+          facility: MESS_FACILITY_INFO,
+        });
+      }
+
+      const result = queryMessMenu({
+        day,
+        meal,
+        weekCycle,
+      });
+
+      return JSON.stringify({
+        queryType: "mess_menu_listing",
+        filter: { day: day || "All", meal: meal || "All", weekCycle: weekCycle || "All" },
+        totalItems: result.items.length,
+        items: result.items,
+        totalCaloriesByMeal: result.totalCaloriesByMeal,
+        facility: MESS_FACILITY_INFO,
+      });
+    },
+    {
+      name: "get_campus_mess_menu",
+      description:
+        "Get the official Bennett University Student Mess Menu (Cycle A & B) with exact meal items, calories in kcal, meal timings (Breakfast, Lunch, Evening Snacks, Dinner), day scholar entry/coupon rules, and dish schedule (e.g. 'What is in today's mess lunch?', 'When is Chole Bhature or Dosa served in mess?', 'Show Monday mess menu with calories').",
+      schema: z.object({
+        day: z
+          .string()
+          .optional()
+          .describe("Day of the week (e.g. 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') or 'All'"),
+        meal: z
+          .enum(["Breakfast", "Lunch", "Snacks", "Dinner", "All"])
+          .optional()
+          .describe("Specific meal time to filter by"),
+        weekCycle: z
+          .enum(["A", "B", "All"])
+          .optional()
+          .describe("Mess rotation week cycle (A or B, default is A or All)"),
+        dishQuery: z
+          .string()
+          .optional()
+          .describe("Specific dish or food item to find out when it is scheduled in the mess (e.g., 'Chole Bhature', 'Paneer Butter Masala', 'Dosa', 'Idli', 'Egg Curry', 'Gulab Jamun')"),
+      }),
+    }
+  ),
+
+  tool(
+    async ({ dishName }) => {
+      const results = compareDishes(dishName);
+      if (!results || results.length === 0) {
+        return JSON.stringify({
+          found: false,
+          message: `No cross-outlet price comparisons found specifically for '${dishName}'. Try searching menu items with search_campus_food_menu.`,
+        });
+      }
+      return JSON.stringify({
+        found: true,
+        dishName,
+        comparisons: results,
+      });
+    },
+    {
+      name: "compare_campus_dishes",
+      description:
+        "Compare prices and options for dishes/drinks across all campus food outlets (SnapEats, House of Chow, Infinity Kitchens, Quench, Southern Stories, etc.) to find the cheapest outlet, exact price in ₹ INR, and sorted list of all options.",
+      schema: z.object({
+        dishName: z
+          .string()
+          .describe("The name or category of the dish to compare across outlets (e.g., 'cold coffee', 'maggi', 'burger', 'kathi roll', 'paneer butter masala', 'tea', 'fried rice', 'shake')"),
+      }),
+    }
+  ),
+
+  tool(
+    async ({ query, outletName, dietType, maxPrice, minPrice, limit }) => {
+      const items = searchMenuItems({
+        query,
+        outletName,
+        dietType,
+        maxPrice,
+        minPrice,
+        limit: limit || 15,
+      });
+      return JSON.stringify({
+        totalFound: items.length,
+        items,
+      });
+    },
+    {
+      name: "search_campus_food_menu",
+      description:
+        "Search individual food & beverage items across Bennett University food outlets with exact prices in ₹ INR, dietary type (Veg / Non-Veg), variant sizes, and highlight tags (Best Seller / Must Try). Can filter by query, outlet name, max price, or diet type.",
+      schema: z.object({
+        query: z
+          .string()
+          .optional()
+          .describe("Food item name or keyword (e.g., 'peri peri fries', 'paneer tikka roll', 'iced latte', 'dosa')"),
+        outletName: z
+          .string()
+          .optional()
+          .describe("Filter by specific outlet name (e.g. 'SnapEats', 'House of Chow', 'Infinity Kitchens', 'Quench', 'Southern Stories')"),
+        dietType: z
+          .enum(["Veg", "Non-Veg", "All"])
+          .optional()
+          .describe("Filter by dietary preference"),
+        maxPrice: z
+          .number()
+          .optional()
+          .describe("Maximum price in INR"),
+        minPrice: z
+          .number()
+          .optional()
+          .describe("Minimum price in INR"),
+        limit: z
+          .number()
+          .optional()
+          .describe("Number of items to return (default 15)"),
+      }),
+    }
+  ),
+
+  tool(
+    async ({ outletNameOrId }) => {
+      if (!outletNameOrId || outletNameOrId.toLowerCase() === "all") {
+        const allOutlets = getAllOutlets();
+        return JSON.stringify(allOutlets);
+      }
+      const outlet = getOutletDetails(outletNameOrId);
+      if (!outlet) {
+        return JSON.stringify({
+          found: false,
+          message: `Outlet '${outletNameOrId}' not found. Available outlets: SnapEats, House of Chow, Infinity Kitchens, Quench, Southern Stories, etc.`,
+        });
+      }
+      const sampleItems = searchMenuItems({ outletName: outlet.outlet_name, limit: 10 });
+      return JSON.stringify({
+        found: true,
+        outlet,
+        sampleItems,
+      });
+    },
+    {
+      name: "get_campus_food_outlet_details",
+      description:
+        "Get detailed information about a campus food outlet at Bennett University, including price range (min/median/max), menu sections, veg-only status, famous specialties/best sellers, and sample menu.",
+      schema: z.object({
+        outletNameOrId: z
+          .string()
+          .describe("Name or ID of the campus food outlet (e.g. 'SnapEats', 'House of Chow', 'HOC', 'Infinity Kitchens', 'Kathi', 'Quench', 'Southern Stories') or 'all' for summary of all outlets"),
+      }),
+    }
+  ),
+
   tool(
     async ({ attended, conducted, targetPercentage, subjectName }) => {
       return JSON.stringify(
@@ -39,14 +208,14 @@ export const campusTools = [
   tool(
     async ({ petitionType, reason, courseOrSubject, studentName, enrollmentNo, datesOrDetails }) => {
       return JSON.stringify(
-        generateAcademicPetition({
+        await generateAcademicPetition({
           petitionType,
           reason,
           courseOrSubject,
           studentName,
           enrollmentNo,
           datesOrDetails,
-        })
+        }, reason)
       );
     },
     {
@@ -60,6 +229,7 @@ export const campusTools = [
           "attendance_condonation",
           "course_drop",
           "hostel_leave",
+          "room_change",
           "general",
         ]).describe("Type of academic petition"),
         reason: z.string().describe("Specific reason or context for the request"),

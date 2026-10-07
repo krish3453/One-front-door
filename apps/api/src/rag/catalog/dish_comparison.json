@@ -1,0 +1,972 @@
+[
+  {
+    "dish_group": "Adrak Chai",
+    "outlets_count": 3,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 10,
+    "cheapest_variant": "Small",
+    "all_options_cheapest_first": "House of Chow: Rs 10 (Small) | SnapEats: Rs 10 (Cup) | Infinity Kitchens: Rs 11 (Small)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Aloo Pyaz Paratha",
+    "outlets_count": 3,
+    "cheapest_outlet": "Southern",
+    "cheapest_price_inr": 60,
+    "cheapest_variant": "1 pc",
+    "all_options_cheapest_first": "Southern: Rs 60 (1 pc) | Infinity Kitchens: Rs 75 | SnapEats: Rs 90",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Black Currant Mojito",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | Infinity Kitchens: Rs 105",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Black Currant Shake",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | Infinity Kitchens: Rs 104",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Blue Lagoon",
+    "outlets_count": 3,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 62,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 62 | House of Chow: Rs 63 | SnapEats: Rs 85",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Blueberry Mojito",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | Infinity Kitchens: Rs 105",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Bread Omelette",
+    "outlets_count": 2,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 63,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 63 | SnapEats: Rs 79",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Brownie Cookie Shake (Exotic)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 158,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 158 | Infinity Kitchens: Rs 158",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Butter Naan",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 59,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 59 | SnapEats: Rs 59",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Butterscotch Shake",
+    "outlets_count": 3,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | SnapEats: Rs 85 | Infinity Kitchens: Rs 104",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Cappuccino",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 49,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "SnapEats: Rs 49 | Infinity Kitchens: Rs 60",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Caramel Cold Coffee",
+    "outlets_count": 3,
+    "cheapest_outlet": "Southern",
+    "cheapest_price_inr": 85,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Southern: Rs 85 | House of Chow: Rs 90 | Infinity Kitchens: Rs 104 (Regular)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Caramel Crunch Shake (Exotic)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 168,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 168 | Infinity Kitchens: Rs 168",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Cheese Baked Fries",
+    "outlets_count": 2,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 157,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 157 | House of Chow: Rs 158 (Full)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Cheese Burger",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 69,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "SnapEats: Rs 69 | Infinity Kitchens: Rs 74",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Cheese Fries",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 95,
+    "cheapest_variant": "Half",
+    "all_options_cheapest_first": "House of Chow: Rs 95 (Half) | Infinity Kitchens: Rs 120",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Cheese Omelette",
+    "outlets_count": 2,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 93,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 93 | SnapEats: Rs 99",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Cheese Sandwich",
+    "outlets_count": 2,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 95,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 95 | SnapEats: Rs 99",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chicken Biryani",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 140,
+    "cheapest_variant": "Half",
+    "all_options_cheapest_first": "House of Chow: Rs 140 (Half) | SnapEats: Rs 299",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chicken Burger",
+    "outlets_count": 2,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 90,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 90 | SnapEats: Rs 129",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chicken Kabab Wrap",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 120,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 120 | Infinity Kitchens: Rs 180",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chicken Kebab Roll",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 119,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 119 | SnapEats: Rs 129",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chicken Momos (Fried)",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 139,
+    "cheapest_variant": "8 pcs",
+    "all_options_cheapest_first": "SnapEats: Rs 139 (8 pcs) | House of Chow: Rs 160",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chicken Momos (Steamed)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 119,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 119 | SnapEats: Rs 129 (8 pcs)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chicken Seekh Kebab",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 299,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 299 | SnapEats: Rs 299 (8 pcs)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chicken Soup",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 100,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 100 | SnapEats: Rs 119",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chicken Tangdi",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 249,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 249 | SnapEats: Rs 249 (4 pcs)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chicken Tikka",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 299,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 299 | SnapEats: Rs 299 (8 pcs)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chicken Tikka Sandwich",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 129,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "SnapEats: Rs 129 | Infinity Kitchens: Rs 158",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chilli Paneer (Dry)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 115,
+    "cheapest_variant": "Half",
+    "all_options_cheapest_first": "House of Chow: Rs 115 (Half) | SnapEats: Rs 159",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chocolate Shake",
+    "outlets_count": 4,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 70,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 70 | House of Chow: Rs 80 | SnapEats: Rs 85 | Infinity Kitchens: Rs 104",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Chole Bhature",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 89,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "SnapEats: Rs 89 | Infinity Kitchens: Rs 90",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Classic Blueberry Shake (Exotic)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 147,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 147 | Infinity Kitchens: Rs 147",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Cold Coffee",
+    "outlets_count": 5,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 69,
+    "cheapest_variant": "Regular",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 69 (Regular) | Quench: Rs 70 | Southern: Rs 70 | House of Chow: Rs 80 | SnapEats: Rs 85",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Crispy Corn",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 100,
+    "cheapest_variant": "Half",
+    "all_options_cheapest_first": "House of Chow: Rs 100 (Half) | SnapEats: Rs 129",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Egg Paratha",
+    "outlets_count": 2,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 95,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 95 | SnapEats: Rs 119",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Egg Roll",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | SnapEats: Rs 89",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Fruit Beer",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 74,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 74 | Infinity Kitchens: Rs 75",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Garlic Naan",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 59,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 59 | SnapEats: Rs 59",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Gobhi Paratha",
+    "outlets_count": 2,
+    "cheapest_outlet": "Southern",
+    "cheapest_price_inr": 65,
+    "cheapest_variant": "1 pc",
+    "all_options_cheapest_first": "Southern: Rs 65 (1 pc) | Infinity Kitchens: Rs 75",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Green Apple Mojito",
+    "outlets_count": 3,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 70,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 70 | House of Chow: Rs 80 | Infinity Kitchens: Rs 105",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Hazelnut Cold Coffee",
+    "outlets_count": 4,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 85,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 85 | Southern: Rs 85 | House of Chow: Rs 90 | Infinity Kitchens: Rs 104 (Regular)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Hot Chocolate",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 59,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "SnapEats: Rs 59 | Infinity Kitchens: Rs 126 (Regular)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Hot Chocolate Fudge",
+    "outlets_count": 2,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 158,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 158 | House of Chow: Rs 159",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Hot Coffee",
+    "outlets_count": 2,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 45,
+    "cheapest_variant": "Regular",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 45 (Regular) | SnapEats: Rs 49",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Ice Tea",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 47,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 47 | Infinity Kitchens: Rs 55 (Regular)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Irish Cold Coffee",
+    "outlets_count": 3,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 85,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 85 | Southern: Rs 85 | Infinity Kitchens: Rs 104 (Regular)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Kadak Elaichi Chai",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 15,
+    "cheapest_variant": "Small",
+    "all_options_cheapest_first": "House of Chow: Rs 15 (Small) | Infinity Kitchens: Rs 21 (Regular)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Kala Khatta",
+    "outlets_count": 2,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 84,
+    "cheapest_variant": "Regular",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 84 (Regular) | SnapEats: Rs 85",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Kit Kat Shake (Exotic)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 147,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 147 | Infinity Kitchens: Rs 147",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "KitKat Shake",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | SnapEats: Rs 85",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Kiwi Mojito",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | Infinity Kitchens: Rs 105",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Kiwi Shake",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | Infinity Kitchens: Rs 104",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Lachha Paratha",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 59,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 59 | SnapEats: Rs 59 (1 pc)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Lime Soda",
+    "outlets_count": 3,
+    "cheapest_outlet": "Infinity Kitchens",
+    "cheapest_price_inr": 55,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Infinity Kitchens: Rs 55 | House of Chow: Rs 70 | SnapEats: Rs 85",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Lotus Biscoff Shake (Exotic)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 168,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 168 | Infinity Kitchens: Rs 168",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Maharaja Burger",
+    "outlets_count": 2,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 120,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 120 | Infinity Kitchens: Rs 140",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Malai Paneer Tikka",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 249,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 249 | SnapEats: Rs 249 (8 pcs)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Malai Soya Chaap",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 199,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 199 | SnapEats: Rs 199 (8 pcs)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Mango Shake",
+    "outlets_count": 2,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 70,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 70 | SnapEats: Rs 85",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Masala Chai",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 10,
+    "cheapest_variant": "Cup",
+    "all_options_cheapest_first": "SnapEats: Rs 10 (Cup) | Infinity Kitchens: Rs 21 (Regular)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Mint Mojito",
+    "outlets_count": 4,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 70,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 70 | House of Chow: Rs 80 | SnapEats: Rs 85 | Infinity Kitchens: Rs 105",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Mix Sauce Pasta",
+    "outlets_count": 3,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 90,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 90 | SnapEats: Rs 99 | Infinity Kitchens: Rs 126",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Mixed Veg Paratha",
+    "outlets_count": 2,
+    "cheapest_outlet": "Southern",
+    "cheapest_price_inr": 65,
+    "cheapest_variant": "1 pc",
+    "all_options_cheapest_first": "Southern: Rs 65 (1 pc) | Infinity Kitchens: Rs 75",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Mutton Seekh Kebab",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 349,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 349 | SnapEats: Rs 349 (8 pcs)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Nutella Crunch Shake (Exotic)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 168,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 168 | Infinity Kitchens: Rs 168",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Oreo Shake",
+    "outlets_count": 2,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 85,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 85 | SnapEats: Rs 85",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Oreo Shake (Exotic)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 147,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 147 | Infinity Kitchens: Rs 147",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Paneer Burger",
+    "outlets_count": 3,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 85,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 85 | SnapEats: Rs 109 | Infinity Kitchens: Rs 116",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Paneer Paratha",
+    "outlets_count": 3,
+    "cheapest_outlet": "Southern",
+    "cheapest_price_inr": 75,
+    "cheapest_variant": "1 pc",
+    "all_options_cheapest_first": "Southern: Rs 75 (1 pc) | Infinity Kitchens: Rs 95 | SnapEats: Rs 99",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Paneer Wrap",
+    "outlets_count": 2,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 90,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 90 | House of Chow: Rs 90",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Passion Fruit Mojito",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | Infinity Kitchens: Rs 105",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Pav Bhaji",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 70,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "SnapEats: Rs 70 | Southern: Rs 80",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Peach Mojito",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | Infinity Kitchens: Rs 105",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Peanut Butter Shake (Exotic)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 147,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 147 | Infinity Kitchens: Rs 147",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Peri Peri Fries",
+    "outlets_count": 4,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 70,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 70 | House of Chow: Rs 84 (Half) | Infinity Kitchens: Rs 90 (Half) | SnapEats: Rs 99",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Pineapple Shake",
+    "outlets_count": 3,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | SnapEats: Rs 85 | Infinity Kitchens: Rs 104",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Red Sauce Pasta",
+    "outlets_count": 3,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 90,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 90 | SnapEats: Rs 99 | Infinity Kitchens: Rs 105",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Red Velvet Shake (Exotic)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 158,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 158 | Infinity Kitchens: Rs 158",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Salted Fries",
+    "outlets_count": 4,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 60,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 60 | House of Chow: Rs 74 (Half) | Infinity Kitchens: Rs 74 (Half) | SnapEats: Rs 80",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Spicy Mango Mojito",
+    "outlets_count": 2,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 70,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 70 | House of Chow: Rs 80",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Strawberry Mojito",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | Infinity Kitchens: Rs 105",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Strawberry Shake",
+    "outlets_count": 3,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | SnapEats: Rs 85 | Infinity Kitchens: Rs 104",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Tandoori Chicken",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 199,
+    "cheapest_variant": "Half",
+    "all_options_cheapest_first": "House of Chow: Rs 199 (Half) | SnapEats: Rs 199 (Half (4 pcs))",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Tandoori Fries",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 95,
+    "cheapest_variant": "Half",
+    "all_options_cheapest_first": "House of Chow: Rs 95 (Half) | Infinity Kitchens: Rs 120",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Tandoori Mushroom",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 199,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 199 | SnapEats: Rs 199 (8 pcs)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Vanilla Shake",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | Infinity Kitchens: Rs 104",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Veg Burger",
+    "outlets_count": 4,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 59,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 59 | SnapEats: Rs 59 | Infinity Kitchens: Rs 63 | Quench: Rs 65",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Veg Grilled Sandwich",
+    "outlets_count": 2,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 65,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 65 | Infinity Kitchens: Rs 73",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Veg Manchow Soup",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 99,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "SnapEats: Rs 99 | House of Chow: Rs 100",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Veg Momos (Fried)",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 119,
+    "cheapest_variant": "8 pcs",
+    "all_options_cheapest_first": "SnapEats: Rs 119 (8 pcs) | House of Chow: Rs 120",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Veg Momos (Steamed)",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 95,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 95 | SnapEats: Rs 99 (8 pcs)",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Veg Noodle Roll",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 89,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "SnapEats: Rs 89 | House of Chow: Rs 99",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Veg Sandwich",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 69,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "SnapEats: Rs 69 | House of Chow: Rs 74",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Vegetable Soup",
+    "outlets_count": 2,
+    "cheapest_outlet": "SnapEats",
+    "cheapest_price_inr": 79,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "SnapEats: Rs 79 | House of Chow: Rs 80",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "Watermelon Mojito",
+    "outlets_count": 2,
+    "cheapest_outlet": "House of Chow",
+    "cheapest_price_inr": 80,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "House of Chow: Rs 80 | Infinity Kitchens: Rs 105",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  },
+  {
+    "dish_group": "White Sauce Pasta",
+    "outlets_count": 3,
+    "cheapest_outlet": "Quench",
+    "cheapest_price_inr": 90,
+    "cheapest_variant": "",
+    "all_options_cheapest_first": "Quench: Rs 90 | SnapEats: Rs 99 | Infinity Kitchens: Rs 105",
+    "tagged_bestseller_at": "",
+    "pick_basis": "lowest price (no student ratings yet)"
+  }
+]

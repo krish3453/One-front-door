@@ -51,7 +51,7 @@ export interface AcademicPetitionResult {
 }
 
 export interface ActionPayload {
-  type: "attendance_calculator" | "academic_petition" | "general_action";
+  type: "attendance_calculator" | "academic_petition" | "campus_petition" | "general_action";
   attendance?: AttendanceCalculationResult;
   petition?: AcademicPetitionResult;
   title?: string;

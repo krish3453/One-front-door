@@ -13,7 +13,7 @@ export interface ActionResult {
  * Detects if a student's prompt is requesting an interactive Action Tool
  * (e.g. attendance bunk calculation, formal academic petition drafting).
  */
-export function tryExecuteActionTool(query: string): ActionResult {
+export async function tryExecuteActionTool(query: string): Promise<ActionResult> {
   const normalized = query.toLowerCase();
 
   /*
@@ -93,48 +93,78 @@ export function tryExecuteActionTool(query: string): ActionResult {
    * 2. ACADEMIC PETITION / FORMAL DRAFTER ACTION TOOL
    * ----------------------------------------------------
    */
-  const petitionKeywords = [
-    "draft a petition",
-    "draft petition",
-    "write an application",
-    "write application",
-    "draft an application",
-    "letter to dean",
-    "letter to hod",
-    "makeup exam application",
-    "makeup exam petition",
-    "medical leave application",
-    "attendance condonation application",
-    "attendance condonation petition",
-    "course drop request",
-    "course drop letter",
-    "hostel out pass application",
-    "hostel leave letter",
-  ];
+  const isPetitionQuery =
+    /petition/i.test(normalized) ||
+    /(?:draft|write|generate|create)\s+(?:a\s+)?(?:formal\s+)?(?:hostel\s+)?(?:petition|application|letter|request|form|outpass|mail|email)/i.test(normalized) ||
+    /(?:letter|application|petition|request|outpass)\s+to\s+(?:the\s+)?(?:dean|hod|warden|chief warden|controller|registrar|vice chancellor)/i.test(normalized) ||
+    /(?:makeup|make-up|supplementary|re-exam|re-test)\s+(?:mid-term|midterm|end-term|endterm|exam|examination|quiz|test)/i.test(normalized) ||
+    /(?:attendance|medical)\s+(?:condonation|exemption|leave application|leave letter)/i.test(normalized);
 
-  const matchedPetition = petitionKeywords.some((k) => normalized.includes(k));
+  if (isPetitionQuery) {
+    let petitionType: "medical_leave" | "makeup_exam" | "attendance_condonation" | "course_drop" | "hostel_leave" | "room_change" | "general" = "general";
 
-  if (matchedPetition) {
-    let petitionType: "medical_leave" | "makeup_exam" | "attendance_condonation" | "course_drop" | "hostel_leave" | "general" = "general";
-
-    if (normalized.includes("makeup") || normalized.includes("supplementary") || normalized.includes("re-exam")) {
+    if (
+      normalized.includes("makeup") ||
+      normalized.includes("make-up") ||
+      normalized.includes("supplementary") ||
+      normalized.includes("re-exam") ||
+      normalized.includes("re-test") ||
+      normalized.includes("missed exam") ||
+      normalized.includes("missed mid-term")
+    ) {
       petitionType = "makeup_exam";
-    } else if (normalized.includes("condonation") || (normalized.includes("attendance") && normalized.includes("medical"))) {
+    } else if (
+      normalized.includes("condonation") ||
+      (normalized.includes("attendance") && (normalized.includes("medical") || normalized.includes("shortage") || normalized.includes("fever") || normalized.includes("sick")))
+    ) {
       petitionType = "attendance_condonation";
-    } else if (normalized.includes("medical") || normalized.includes("sick") || normalized.includes("fever") || normalized.includes("hospital")) {
+    } else if (
+      normalized.includes("medical") ||
+      normalized.includes("sick") ||
+      normalized.includes("fever") ||
+      normalized.includes("hospital") ||
+      normalized.includes("injury") ||
+      normalized.includes("accident") ||
+      normalized.includes("surgery")
+    ) {
       petitionType = "medical_leave";
     } else if (normalized.includes("drop") || normalized.includes("withdraw")) {
       petitionType = "course_drop";
-    } else if (normalized.includes("hostel") || normalized.includes("outpass") || normalized.includes("curfew")) {
+    } else if (normalized.includes("hostel") || normalized.includes("outpass") || normalized.includes("night pass") || normalized.includes("curfew")) {
       petitionType = "hostel_leave";
+    } else if (normalized.includes("room change") || normalized.includes("change room") || normalized.includes("room reallocation")) {
+      petitionType = "room_change";
     }
 
-    const petition = generateAcademicPetition({
-      petitionType,
-      reason: query,
-    });
+    // Extract subject/course: e.g. "in Data Structures", "for Operating Systems", "in CSE201"
+    let courseOrSubject: string | undefined = undefined;
+    const courseMatch =
+      query.match(/(?:in|for|course)\s+([A-Za-z0-9\s&]{2,30}?)(?:\s+due to|\s+because|\s+owing to|\s+suffering from|\.|\?|$)/i) ||
+      query.match(/(?:in|for)\s+([A-Z][A-Za-z0-9\s&]{2,25})/);
+    if (courseMatch && courseMatch[1]) {
+      const candidate = courseMatch[1].trim();
+      if (!/^(the|a|an|formal|makeup|dean|hod|medical|hostel|exam|re-exam)$/i.test(candidate)) {
+        courseOrSubject = candidate;
+      }
+    }
 
-    const formatted = `### 📝 Formal Academic Petition Generated
+    // Extract reason: e.g. "due to severe viral fever", "because of viral infection"
+    let extractedReason = query;
+    const reasonMatch = query.match(/(?:due to|because of|owing to|on account of|suffering from|reason:?)\s+([A-Za-z0-9\s,.-]{3,80})/i);
+    if (reasonMatch && reasonMatch[1]) {
+      extractedReason = reasonMatch[1].trim().replace(/[.?]+$/, "");
+    }
+
+    const petition = await generateAcademicPetition({
+      petitionType,
+      courseOrSubject,
+      reason: extractedReason,
+    }, query);
+
+    const isCampusPetition = petitionType === "hostel_leave" || petitionType === "room_change";
+    const petitionCategoryStr = isCampusPetition ? "Campus / Hostel Petition" : "Academic Petition";
+
+    const formatted = `### 📝 Formal ${petitionCategoryStr} Generated
 
 **Recipient:**  
 \`\`\`
@@ -145,7 +175,7 @@ ${petition.recipient}
 
 ---
 
-#### 📄 Letter Body:
+#### 📄 Official Letter Body:
 \`\`\`text
 ${petition.body}
 \`\`\`
@@ -158,15 +188,15 @@ ${petition.relevantRulesCited.map((r) => `- ${r}`).join("\n")}
 #### 📎 Mandatory Supporting Enclosures:
 ${petition.enclosures.map((e) => `- [ ] ${e}`).join("\n")}
 
-*(You can copy this letter directly or use the quick action button below to send it to the administration.)*`;
+*(You can copy this letter directly or use the quick action button below to email the administration.)*`;
 
     return {
       actionExecuted: true,
-      toolName: "academic_petition_generator",
+      toolName: isCampusPetition ? "campus_petition_generator" : "academic_petition_generator",
       actionPayload: {
-        type: "academic_petition",
+        type: isCampusPetition ? "campus_petition" : "academic_petition",
         petition,
-        title: "Official Academic Petition Drafter",
+        title: `Official ${petitionCategoryStr} Prepared`,
       },
       formattedOutput: formatted,
     };

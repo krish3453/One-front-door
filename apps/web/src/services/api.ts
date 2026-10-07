@@ -121,9 +121,9 @@ export const sendMessage = async (
         error.response?.data?.error ??
         error.response?.data?.message ??
         error.message;
-      throw new Error(message);
+      throw new Error(message, { cause: error });
     }
-    throw new Error("Unable to connect to the chat server.");
+    throw new Error("Unable to connect to the chat server.", { cause: error });
   }
 };
 

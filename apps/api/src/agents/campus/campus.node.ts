@@ -133,6 +133,29 @@ Do not invent university-specific information.
       } catch (err) {
         // ignore parse errors
       }
+    } else if (
+      msg.name === "get_campus_mess_menu"
+    ) {
+      sources.push({
+        source: "DOC-MESS-MENU-2026",
+        page: 1,
+        documentType: "campus_mess_menu",
+      });
+      sources.push({
+        source: "Bennett_University_Mess_Dining_Knowledge_Base",
+        page: 2,
+        documentType: "campus_mess_policies",
+      });
+    } else if (
+      msg.name === "compare_campus_dishes" ||
+      msg.name === "search_campus_food_menu" ||
+      msg.name === "get_campus_food_outlet_details"
+    ) {
+      sources.push({
+        source: "Bennett_University_Food_and_Dining_Catalog",
+        page: 1,
+        documentType: "campus_dining_catalog",
+      });
     }
   }
 

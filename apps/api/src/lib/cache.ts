@@ -5,7 +5,7 @@ const CACHE_TTL_SECONDS = Number(
   process.env.CACHE_TTL_SECONDS ?? 60 * 60
 );
 
-const CACHE_VERSION = "v1";
+const CACHE_VERSION = "v2";
 
 function normalizeMessage(message: string): string {
   return message

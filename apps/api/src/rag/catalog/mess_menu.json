@@ -1,0 +1,2441 @@
+[
+  {
+    "menu_id": "M0001",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Breakfast",
+    "item": "Aloo Paratha",
+    "calories_kcal": 290,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0002",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Breakfast",
+    "item": "Curd",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0003",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Breakfast",
+    "item": "Pickle",
+    "calories_kcal": 20,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0004",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Breakfast",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0005",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0006",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0007",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0008",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Dal Tadka",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0009",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Aloo Gobi",
+    "calories_kcal": 160,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0010",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0011",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0012",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Papad",
+    "calories_kcal": 45,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0013",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Snacks",
+    "item": "Samosa",
+    "calories_kcal": 260,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0014",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Snacks",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0015",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0016",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0017",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Dal Makhani",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0018",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Matar Paneer",
+    "calories_kcal": 290,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0019",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0020",
+    "week_cycle": "A",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Gulab Jamun",
+    "calories_kcal": 300,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0021",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Breakfast",
+    "item": "Poha",
+    "calories_kcal": 250,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0022",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Breakfast",
+    "item": "Boiled Egg",
+    "calories_kcal": 78,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0023",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Breakfast",
+    "item": "Bread Butter Jam",
+    "calories_kcal": 260,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0024",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Breakfast",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0025",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0026",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0027",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Jeera Rice",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0028",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Rajma",
+    "calories_kcal": 190,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0029",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Bhindi Masala",
+    "calories_kcal": 130,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0030",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Curd",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0031",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0032",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Snacks",
+    "item": "Veg Maggi",
+    "calories_kcal": 310,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0033",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Snacks",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0034",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0035",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Dinner",
+    "item": "Fried Rice",
+    "calories_kcal": 300,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0036",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Dinner",
+    "item": "Veg Manchurian",
+    "calories_kcal": 220,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0037",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Dinner",
+    "item": "Dal Fry",
+    "calories_kcal": 145,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0038",
+    "week_cycle": "A",
+    "day": "Tuesday",
+    "meal": "Dinner",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0039",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Breakfast",
+    "item": "Idli",
+    "calories_kcal": 140,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0040",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Breakfast",
+    "item": "Sambar",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0041",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Breakfast",
+    "item": "Coconut Chutney",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0042",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Breakfast",
+    "item": "Coffee",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0043",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0044",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0045",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0046",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Kadhi Pakora",
+    "calories_kcal": 210,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0047",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Mix Veg",
+    "calories_kcal": 140,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0048",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0049",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Papad",
+    "calories_kcal": 45,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0050",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Jalebi",
+    "calories_kcal": 290,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0051",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Snacks",
+    "item": "Bread Pakora",
+    "calories_kcal": 250,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0052",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Snacks",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0053",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0054",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Dinner",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0056",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Dinner",
+    "item": "Dal Tadka",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0057",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Dinner",
+    "item": "Aloo Gobi",
+    "calories_kcal": 160,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0058",
+    "week_cycle": "A",
+    "day": "Wednesday",
+    "meal": "Dinner",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0059",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Breakfast",
+    "item": "Puri Bhaji",
+    "calories_kcal": 430,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0060",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Breakfast",
+    "item": "Sheera",
+    "calories_kcal": 210,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0061",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Breakfast",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0062",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0063",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0064",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Veg Pulao",
+    "calories_kcal": 260,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0065",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Dal Fry",
+    "calories_kcal": 145,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0066",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Matar Paneer",
+    "calories_kcal": 290,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0067",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0068",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0069",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Snacks",
+    "item": "Pav Bhaji",
+    "calories_kcal": 400,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0070",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Snacks",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0071",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0072",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Jeera Rice",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0073",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Palak Paneer",
+    "calories_kcal": 280,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0074",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Mixed Dal",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0075",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0076",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Papad",
+    "calories_kcal": 45,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0077",
+    "week_cycle": "A",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Kheer",
+    "calories_kcal": 220,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0078",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Breakfast",
+    "item": "Masala Dosa",
+    "calories_kcal": 330,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0079",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Breakfast",
+    "item": "Sambar",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0080",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Breakfast",
+    "item": "Coconut Chutney",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0081",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Breakfast",
+    "item": "Coffee",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0082",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0083",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0084",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0085",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Chana Masala",
+    "calories_kcal": 210,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0086",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Lauki Sabzi",
+    "calories_kcal": 90,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0087",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Curd",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0088",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0089",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Papad",
+    "calories_kcal": 45,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0090",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Snacks",
+    "item": "Vada Pav",
+    "calories_kcal": 290,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0091",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Snacks",
+    "item": "Coffee",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0092",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0093",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Veg Biryani",
+    "calories_kcal": 340,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0094",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0095",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Dal Fry",
+    "calories_kcal": 145,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0096",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0097",
+    "week_cycle": "A",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Ice Cream",
+    "calories_kcal": 140,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0098",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Breakfast",
+    "item": "Chole Bhature",
+    "calories_kcal": 520,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0099",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Breakfast",
+    "item": "Pickle",
+    "calories_kcal": 20,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0100",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Breakfast",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0101",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0102",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0103",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Veg Biryani",
+    "calories_kcal": 340,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0104",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Dal Makhani",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0105",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0106",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0107",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Gulab Jamun",
+    "calories_kcal": 300,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0108",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Snacks",
+    "item": "Sprouts Chaat",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0109",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Snacks",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0110",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Snacks",
+    "item": "Biscuits",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0111",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0112",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Hakka Noodles",
+    "calories_kcal": 320,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0113",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Veg Manchurian",
+    "calories_kcal": 220,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0114",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Dal Tadka",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0115",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0116",
+    "week_cycle": "A",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Moong Dal Halwa",
+    "calories_kcal": 320,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0117",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Breakfast",
+    "item": "Aloo Paratha",
+    "calories_kcal": 290,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0118",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Breakfast",
+    "item": "Omelette",
+    "calories_kcal": 154,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0119",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Breakfast",
+    "item": "Curd",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0120",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Breakfast",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0121",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Breakfast",
+    "item": "Cornflakes",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0122",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0123",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0124",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Jeera Rice",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0125",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Palak Paneer",
+    "calories_kcal": 280,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0126",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Mixed Dal",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0128",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0129",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0130",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Kheer",
+    "calories_kcal": 220,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0131",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Snacks",
+    "item": "Fruit Chaat",
+    "calories_kcal": 90,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0132",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Snacks",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0133",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0134",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0136",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Paneer Butter Masala",
+    "calories_kcal": 340,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0137",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Dal Tadka",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0138",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0139",
+    "week_cycle": "A",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Rasgulla",
+    "calories_kcal": 125,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0140",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Breakfast",
+    "item": "Upma",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0141",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Breakfast",
+    "item": "Boiled Egg",
+    "calories_kcal": 78,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0142",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Breakfast",
+    "item": "Bread Butter Jam",
+    "calories_kcal": 260,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0143",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Breakfast",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0144",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0145",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0146",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0147",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Dal Fry",
+    "calories_kcal": 145,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0148",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Baingan Bharta",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0149",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0150",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0151",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Snacks",
+    "item": "Dhokla",
+    "calories_kcal": 160,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0152",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Snacks",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0153",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0154",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Jeera Rice",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0155",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Rajma",
+    "calories_kcal": 190,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0156",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Lauki Sabzi",
+    "calories_kcal": 90,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0157",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0158",
+    "week_cycle": "B",
+    "day": "Monday",
+    "meal": "Dinner",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0159",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Breakfast",
+    "item": "Aloo Paratha",
+    "calories_kcal": 290,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0160",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Breakfast",
+    "item": "Curd",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0161",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Breakfast",
+    "item": "Pickle",
+    "calories_kcal": 20,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0162",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Breakfast",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0163",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0164",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0165",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Jeera Rice",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0166",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Chana Masala",
+    "calories_kcal": 210,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0167",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Aloo Gobi",
+    "calories_kcal": 160,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0168",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Curd",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0169",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0170",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Lunch",
+    "item": "Papad",
+    "calories_kcal": 45,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0171",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Snacks",
+    "item": "Aloo Tikki",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0172",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Snacks",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0173",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0174",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Dinner",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0175",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Dinner",
+    "item": "Egg Curry",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0176",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Dinner",
+    "item": "Dal Fry",
+    "calories_kcal": 145,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0177",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Dinner",
+    "item": "Bhindi Masala",
+    "calories_kcal": 130,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0178",
+    "week_cycle": "B",
+    "day": "Tuesday",
+    "meal": "Dinner",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0179",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Breakfast",
+    "item": "Poha",
+    "calories_kcal": 250,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0180",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Breakfast",
+    "item": "Vegetable Sandwich",
+    "calories_kcal": 240,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0181",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Breakfast",
+    "item": "Coffee",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0182",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0183",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0184",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Veg Pulao",
+    "calories_kcal": 260,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0185",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Rajma",
+    "calories_kcal": 190,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0186",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Mix Veg",
+    "calories_kcal": 140,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0187",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0188",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0189",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Snacks",
+    "item": "Macaroni",
+    "calories_kcal": 280,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0190",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Snacks",
+    "item": "Coffee",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0191",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0192",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Dinner",
+    "item": "Veg Pulao",
+    "calories_kcal": 260,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0193",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Dinner",
+    "item": "Paneer Butter Masala",
+    "calories_kcal": 340,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0194",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Dinner",
+    "item": "Dal Tadka",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0195",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Dinner",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0196",
+    "week_cycle": "B",
+    "day": "Wednesday",
+    "meal": "Dinner",
+    "item": "Fruit Custard",
+    "calories_kcal": 160,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0197",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Breakfast",
+    "item": "Idli",
+    "calories_kcal": 140,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0198",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Breakfast",
+    "item": "Sambar",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0199",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Breakfast",
+    "item": "Coconut Chutney",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0200",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Breakfast",
+    "item": "Coffee",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0201",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0202",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0203",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0204",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Dal Tadka",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0205",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Paneer Butter Masala",
+    "calories_kcal": 340,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0206",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0207",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Papad",
+    "calories_kcal": 45,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0208",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Lunch",
+    "item": "Fruit Custard",
+    "calories_kcal": 160,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0209",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Snacks",
+    "item": "Samosa",
+    "calories_kcal": 260,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0210",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Snacks",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0211",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0212",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0214",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Dal Tadka",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0215",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Mix Veg",
+    "calories_kcal": 140,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0216",
+    "week_cycle": "B",
+    "day": "Thursday",
+    "meal": "Dinner",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0217",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Breakfast",
+    "item": "Puri Bhaji",
+    "calories_kcal": 430,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0218",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Breakfast",
+    "item": "Omelette",
+    "calories_kcal": 154,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0219",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Breakfast",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0220",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0221",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0222",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0223",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Kadhi Pakora",
+    "calories_kcal": 210,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0224",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Bhindi Masala",
+    "calories_kcal": 130,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0225",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Curd",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0226",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0227",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Snacks",
+    "item": "Pav Bhaji",
+    "calories_kcal": 400,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0228",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Snacks",
+    "item": "Coffee",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0229",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0230",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Fried Rice",
+    "calories_kcal": 300,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0231",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Veg Manchurian",
+    "calories_kcal": 220,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0232",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Dal Makhani",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0233",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0234",
+    "week_cycle": "B",
+    "day": "Friday",
+    "meal": "Dinner",
+    "item": "Ice Cream",
+    "calories_kcal": 140,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0235",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Breakfast",
+    "item": "Masala Dosa",
+    "calories_kcal": 330,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0236",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Breakfast",
+    "item": "Sambar",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0237",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Breakfast",
+    "item": "Coconut Chutney",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0238",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Breakfast",
+    "item": "Coffee",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0239",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0240",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0242",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Veg Biryani",
+    "calories_kcal": 340,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0243",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Dal Tadka",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0244",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0245",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0246",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Lunch",
+    "item": "Rasgulla",
+    "calories_kcal": 125,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0247",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Snacks",
+    "item": "Bread Pakora",
+    "calories_kcal": 250,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0248",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Snacks",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0249",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Snacks",
+    "item": "Biscuits",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0250",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0251",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Steamed Rice",
+    "calories_kcal": 205,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0252",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Chana Masala",
+    "calories_kcal": 210,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0253",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Baingan Bharta",
+    "calories_kcal": 150,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0254",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Papad",
+    "calories_kcal": 45,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0255",
+    "week_cycle": "B",
+    "day": "Saturday",
+    "meal": "Dinner",
+    "item": "Jalebi",
+    "calories_kcal": 290,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0256",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Breakfast",
+    "item": "Chole Bhature",
+    "calories_kcal": 520,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0257",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Breakfast",
+    "item": "Sheera",
+    "calories_kcal": 210,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0258",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Breakfast",
+    "item": "Pickle",
+    "calories_kcal": 20,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0259",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Breakfast",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0260",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Breakfast",
+    "item": "Milk",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0261",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0262",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Jeera Rice",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0263",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Dal Makhani",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0264",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Soya Chaap",
+    "calories_kcal": 240,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0265",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Egg Curry",
+    "calories_kcal": 230,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0266",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0267",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0268",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Lunch",
+    "item": "Jalebi",
+    "calories_kcal": 290,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0269",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Snacks",
+    "item": "Sprouts Chaat",
+    "calories_kcal": 120,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0270",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Snacks",
+    "item": "Tea",
+    "calories_kcal": 60,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0271",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Roti",
+    "calories_kcal": 100,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0272",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Veg Biryani",
+    "calories_kcal": 340,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0274",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Dal Fry",
+    "calories_kcal": 145,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0275",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Raita",
+    "calories_kcal": 70,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0276",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Green Salad",
+    "calories_kcal": 35,
+    "source_doc": "DOC-MESS-MENU-2026"
+  },
+  {
+    "menu_id": "M0277",
+    "week_cycle": "B",
+    "day": "Sunday",
+    "meal": "Dinner",
+    "item": "Kheer",
+    "calories_kcal": 220,
+    "source_doc": "DOC-MESS-MENU-2026"
+  }
+]

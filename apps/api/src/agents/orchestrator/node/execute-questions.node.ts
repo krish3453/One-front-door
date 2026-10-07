@@ -48,6 +48,33 @@ export async function executeQuestionsNode(
     );
 
     /*
+     * Intercept Action Tools (Petitions, etc.)
+     */
+    const { tryExecuteActionTool } = await import("../../tools/action-dispatcher.js");
+    const actionResult = await tryExecuteActionTool(question);
+
+    if (actionResult.actionExecuted && actionResult.formattedOutput) {
+      console.log(`[Orchestrator] Action tool executed: ${actionResult.toolName}`);
+      
+      const isCampus = actionResult.toolName === "campus_petition_generator";
+      const route = isCampus ? "campus" : "academic";
+
+      results.push({
+        question,
+        route,
+        response: actionResult.formattedOutput,
+        sources: [
+          {
+            source: isCampus ? "Hostel Rules & Code of Conduct.pdf" : "Student Attendance & Examination Regulations 2024-25.pdf",
+            page: 1,
+            documentType: "regulation",
+          },
+        ],
+      });
+      continue;
+    }
+
+    /*
      * Classify the question.
      */
     const classification =

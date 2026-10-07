@@ -78,25 +78,6 @@ export async function academicNode(
   );
 
   /*
-   * 0. CHECK ACTION TOOLS (ATTENDANCE BUNK PLANNER & FORMAL ACADEMIC PETITION DRAFTER)
-   */
-  const { tryExecuteActionTool } = await import("../tools/action-dispatcher.js");
-  const actionResult = tryExecuteActionTool(state.question);
-  if (actionResult.actionExecuted && actionResult.formattedOutput) {
-    console.log(`[Academic Agent] Action tool executed: ${actionResult.toolName}`);
-    return {
-      response: actionResult.formattedOutput,
-      sources: [
-        {
-          source: "Student Attendance & Examination Regulations 2024-25.pdf",
-          page: 1,
-          documentType: "attendance_notification",
-        },
-      ],
-    };
-  }
-
-  /*
    * Syllabus and Curriculum questions require substantially
    * more context than normal questions.
    */

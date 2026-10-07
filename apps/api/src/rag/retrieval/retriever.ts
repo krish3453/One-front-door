@@ -133,11 +133,11 @@ function analyzeQueryContext(query: string): QueryContext {
     targetDocType = "examination_manual";
     expandedTerms.push("examination", "grade", "marks", "evaluation");
   }
-  // 5. Discipline / Conduct / Ragging / Hostels
-  else if (/\b(discipline|conduct|ragging|anti ragging|alcohol|smoking|drugs|substance|fight|misconduct|curfew|hostel rules?|fine|penalty|suspension|expulsion)\b/i.test(query)) {
+  // 5. Discipline / Conduct / Ragging / Alcohol / Substance / Breathalyzer / Curfew / Fines
+  else if (/\b(discipline|conduct|ragging|anti ragging|alcohol|drank|drink|drinking|drunk|liquor|inebriated|beer|wine|smoking|tobacco|cigarette|drugs|substance|chillum|hookah|fight|altercation|misconduct|curfew|hostel rules?|fine|fines|penalty|penalties|suspension|expulsion|proctor|proctorial|breath\s*analy[sz]er|caught|gate\s*pass)\b/i.test(query)) {
     targetSource = "STUDENTS-DISCIPLINE-AND-CONDUCT-RULES.pdf";
     targetDocType = "discipline_rules";
-    expandedTerms.push("discipline", "conduct", "rules", "student");
+    expandedTerms.push("discipline", "conduct", "rules", "alcohol", "liquor", "inebriated", "intoxicants", "penalty", "proctorial", "suspension", "fine");
   }
   // 6. Campus Brochure / General Facilities
   else if (/\b(brochure|campus life|swimming pool|sports|gym|placement stats|highest package|average package|recruiters)\b/i.test(query)) {
@@ -361,8 +361,13 @@ export async function retrieveDocuments(
       }
     }
 
-    // If still empty or low results, run scored fallback across all chunks
-    if (documents.length === 0) {
+    // Check if target source is adequately represented in Qdrant results
+    const hasTargetSourceMatches = contextInfo.targetSource
+      ? documents.some((d) => d.metadata.source === contextInfo.targetSource)
+      : documents.length >= k;
+
+    // If target source is missing or overall results are empty/low, run scored search across all local chunks
+    if (!hasTargetSourceMatches || documents.length === 0) {
       const scored = allChunks.map((doc) => {
         let score = 0;
         const metaCode = String(doc.metadata.courseCode || "").toUpperCase();
@@ -371,7 +376,7 @@ export async function retrieveDocuments(
         const docType = String(doc.metadata.documentType || "");
 
         if (contextInfo.targetSource && docSource === contextInfo.targetSource) {
-          score += 40;
+          score += 50;
           if (content.includes("detailed syllabus") || content.includes("list of courses") || content.includes("program structure")) {
             score += 150;
           }
@@ -381,17 +386,24 @@ export async function retrieveDocuments(
         }
 
         if (contextInfo.targetDocType && docType === contextInfo.targetDocType) {
-          score += 25;
+          score += 30;
         }
 
         if (detectedCourseCode && (metaCode === detectedCourseCode.toUpperCase() || content.includes(detectedCourseCode.toLowerCase()))) {
           score += 200;
         }
 
-        const allTerms = [...searchTerms, ...contextInfo.expandedTerms];
-        for (const term of allTerms) {
-          if (content.includes(term)) {
-            score += 8;
+        for (const term of searchTerms) {
+          const lowerTerm = term.toLowerCase();
+          if (content.includes(lowerTerm)) {
+            score += 80;
+          }
+        }
+
+        for (const term of contextInfo.expandedTerms) {
+          const lowerTerm = term.toLowerCase();
+          if (content.includes(lowerTerm)) {
+            score += 25;
           }
         }
 
@@ -405,8 +417,8 @@ export async function retrieveDocuments(
         .map((s) => s.doc);
 
       if (matched.length > 0) {
-        console.log(`[Retriever] Local chunk fallback matched ${matched.length} chunks.`);
-        documents = matched;
+        console.log(`[Retriever] Local chunk search matched ${matched.length} chunks.`);
+        documents = [...matched, ...documents];
       }
     }
   } catch (err: any) {

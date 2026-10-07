@@ -23,6 +23,11 @@ const HomePage: React.FC<HomePageProps> = ({ onSuggestion, scrollContainerRef })
   const heroTextRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const screenshotRef = useRef<HTMLDivElement>(null);
+  const architectureRef = useRef<HTMLDivElement>(null);
+  const featuresRef = useRef<HTMLDivElement>(null);
+  const howItWorksRef = useRef<HTMLDivElement>(null);
+  const useCasesRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -112,6 +117,92 @@ const HomePage: React.FC<HomePageProps> = ({ onSuggestion, scrollContainerRef })
           }
         }
       );
+
+      // 5. Architecture Viz fade up
+      gsap.fromTo(architectureRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: architectureRef.current,
+            scroller,
+            start: "top 85%",
+            end: "top 60%",
+            scrub: 1,
+          }
+        }
+      );
+
+      // 6. Interactive features fade up
+      gsap.fromTo(featuresRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: featuresRef.current,
+            scroller,
+            start: "top 85%",
+            end: "top 60%",
+            scrub: 1,
+          }
+        }
+      );
+
+      // 7. How It Works fade up
+      gsap.fromTo(howItWorksRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: howItWorksRef.current,
+            scroller,
+            start: "top 85%",
+            end: "top 60%",
+            scrub: 1,
+          }
+        }
+      );
+
+      // 8. Use Cases fade up
+      gsap.fromTo(useCasesRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: useCasesRef.current,
+            scroller,
+            start: "top 85%",
+            end: "top 60%",
+            scrub: 1,
+          }
+        }
+      );
+
+      // 9. Stats fade and scale up
+      gsap.fromTo(statsRef.current,
+        { opacity: 0, scale: 0.95 },
+        {
+          opacity: 1,
+          scale: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: statsRef.current,
+            scroller,
+            start: "top 90%",
+            end: "top 75%",
+            scrub: 1,
+          }
+        }
+      );
+
 
     });
 
@@ -211,7 +302,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSuggestion, scrollContainerRef })
         </div>
       </div>
 
-      <div className="architecture-viz">
+      <div className="architecture-viz" ref={architectureRef}>
         {/* Left side: The Agents (like the many branches in the image) */}
         <div className="viz-agents-column">
           <div className="viz-node agent-node">
@@ -255,7 +346,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSuggestion, scrollContainerRef })
         </div>
       </div>
 
-      <div className="interactive-features">
+      <div className="interactive-features" ref={featuresRef}>
         <div className="tabs-container">
           {(Object.keys(tabContent) as TabType[]).map((key) => (
             <button
@@ -291,7 +382,74 @@ const HomePage: React.FC<HomePageProps> = ({ onSuggestion, scrollContainerRef })
         </div>
       </div>
 
-      <div className="data-viz-section">
+      <div className="how-it-works-section" ref={howItWorksRef}>
+        <h2 className="section-heading">How It Works</h2>
+        <div className="hiw-grid">
+          <div className="hiw-step">
+            <div className="hiw-number">1</div>
+            <h3 className="hiw-title">You Ask a Question</h3>
+            <p className="hiw-desc">Type your query in natural language. Our intent analyzer breaks down complex or multi-part questions instantly.</p>
+          </div>
+          <div className="hiw-step">
+            <div className="hiw-number">2</div>
+            <h3 className="hiw-title">Intelligent Routing</h3>
+            <p className="hiw-desc">The Orchestrator routes your question to the specialized Academic, Campus, or General agent based on context.</p>
+          </div>
+          <div className="hiw-step">
+            <div className="hiw-number">3</div>
+            <h3 className="hiw-title">RAG & Synthesis</h3>
+            <p className="hiw-desc">Agents retrieve live data and exact PDF rules from our secure Vector DB, synthesizing a precise, cited answer.</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="use-cases-section" ref={useCasesRef}>
+        <h2 className="section-heading">Built for Every Student</h2>
+        <div className="uc-grid">
+          <div className="uc-card">
+            <div className="uc-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </div>
+            <div className="uc-content">
+              <h4>The Exam Crammer</h4>
+              <p>Find out exactly what topics are covered in tomorrow's mid-term and how much each unit weighs.</p>
+              <div className="uc-quote">"What is the syllabus for CSE214?"</div>
+            </div>
+          </div>
+          <div className="uc-card">
+            <div className="uc-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            </div>
+            <div className="uc-content">
+              <h4>The Rule Bender</h4>
+              <p>Check the exact university policy on hostel curfews, alcohol possession, or disciplinary actions.</p>
+              <div className="uc-quote">"What happens if I'm caught drinking?"</div>
+            </div>
+          </div>
+          <div className="uc-card">
+            <div className="uc-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            </div>
+            <div className="uc-content">
+              <h4>The Rule Breaker</h4>
+              <p>Need to appeal a fine? Instantly generate a perfectly formatted petition to the Dean or Warden.</p>
+              <div className="uc-quote">"Draft a petition for late fee waiver."</div>
+            </div>
+          </div>
+          <div className="uc-card">
+            <div className="uc-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+            </div>
+            <div className="uc-content">
+              <h4>The Foodie</h4>
+              <p>Skip the boring mess food and find which campus cafe serves the best Hazelnut Cold Coffee.</p>
+              <div className="uc-quote">"Where can I get cold coffee?"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="data-viz-section" ref={statsRef}>
         <div className="stats-card">
           <div className="stat-value">3</div>
           <div className="stat-label">Specialized Agents</div>

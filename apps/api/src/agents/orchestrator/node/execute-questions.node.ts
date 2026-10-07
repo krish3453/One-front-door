@@ -45,7 +45,7 @@ export async function executeQuestionsNode(
 
       if (actionResult.actionExecuted && actionResult.formattedOutput) {
         console.log(`[Orchestrator] Action tool executed: ${actionResult.toolName}`);
-        
+
         const isCampus = actionResult.toolName === "campus_petition_generator";
         const route = isCampus ? "campus" : "academic";
 

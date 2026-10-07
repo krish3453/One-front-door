@@ -239,4 +239,20 @@ export const streamChatMessage = async (
   return finalResponse;
 };
 
+/*
+ * --------------------------------------------------
+ * CONVERSATION HISTORY
+ * --------------------------------------------------
+ */
+
+export const getConversations = async () => {
+  const response = await api.get("/conversations");
+  return response.data;
+};
+
+export const getConversation = async (id: string) => {
+  const response = await api.get(`/conversations/${id}`);
+  return response.data;
+};
+
 export default api;

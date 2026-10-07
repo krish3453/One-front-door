@@ -33,135 +33,94 @@ export async function executeQuestionsNode(
       ? state.questions
       : [state.question];
 
-  const results = [];
+  const results = await Promise.all(
+    questions.map(async (question) => {
+      console.log(`\n[Orchestrator] Processing: ${question}`);
 
-  console.log(
-    `\n[Orchestrator] Total questions: ${questions.length}`
-  );
+      /*
+       * Intercept Action Tools (Petitions, etc.)
+       */
+      const { tryExecuteActionTool } = await import("../../tools/action-dispatcher.js");
+      const actionResult = await tryExecuteActionTool(question);
 
-  for (
-    const question of questions
-  ) {
+      if (actionResult.actionExecuted && actionResult.formattedOutput) {
+        console.log(`[Orchestrator] Action tool executed: ${actionResult.toolName}`);
+        
+        const isCampus = actionResult.toolName === "campus_petition_generator";
+        const route = isCampus ? "campus" : "academic";
 
-    console.log(
-      `\n[Orchestrator] Processing: ${question}`
-    );
+        return {
+          question,
+          route,
+          response: actionResult.formattedOutput,
+          sources: [
+            {
+              source: isCampus ? "Hostel Rules & Code of Conduct.pdf" : "Student Attendance & Examination Regulations 2024-25.pdf",
+              page: 1,
+              documentType: "regulation",
+            },
+          ],
+        };
+      }
 
-    /*
-     * Intercept Action Tools (Petitions, etc.)
-     */
-    const { tryExecuteActionTool } = await import("../../tools/action-dispatcher.js");
-    const actionResult = await tryExecuteActionTool(question);
+      /*
+       * Classify the question.
+       */
+      const classification = await classifyNode({
+        ...state,
+        question,
+      });
 
-    if (actionResult.actionExecuted && actionResult.formattedOutput) {
-      console.log(`[Orchestrator] Action tool executed: ${actionResult.toolName}`);
-      
-      const isCampus = actionResult.toolName === "campus_petition_generator";
-      const route = isCampus ? "campus" : "academic";
+      const route = classification.route;
 
-      results.push({
+      if (!route) {
+        throw new Error(`Could not determine route for question: ${question}`);
+      }
+
+      console.log(`[Orchestrator] Route: ${route}`);
+
+      let agentResult;
+
+      /*
+       * Execute the appropriate specialized agent.
+       */
+      switch (route) {
+        case "academic":
+          agentResult = await academicNode({
+            ...state,
+            question,
+            route,
+          });
+          break;
+
+        case "campus":
+          agentResult = await campusNode({
+            ...state,
+            question,
+            route,
+          });
+          break;
+
+        case "general":
+          agentResult = await generalNode({
+            ...state,
+            question,
+            route,
+          });
+          break;
+      }
+
+      return {
         question,
         route,
-        response: actionResult.formattedOutput,
-        sources: [
-          {
-            source: isCampus ? "Hostel Rules & Code of Conduct.pdf" : "Student Attendance & Examination Regulations 2024-25.pdf",
-            page: 1,
-            documentType: "regulation",
-          },
-        ],
-      });
-      continue;
-    }
-
-    /*
-     * Classify the question.
-     */
-    const classification =
-      await classifyNode({
-        ...state,
-
-        question,
-      });
-
-    const route =
-      classification.route;
-
-    if (!route) {
-      throw new Error(
-        `Could not determine route for question: ${question}`
-      );
-    }
-
-    console.log(
-      `[Orchestrator] Route: ${route}`
-    );
-
-    let agentResult;
-
-    /*
-     * Execute the appropriate
-     * specialized agent.
-     */
-    switch (route) {
-
-      case "academic":
-
-        agentResult =
-          await academicNode({
-            ...state,
-
-            question,
-
-            route,
-          });
-
-        break;
-
-      case "campus":
-
-        agentResult =
-          await campusNode({
-            ...state,
-
-            question,
-
-            route,
-          });
-
-        break;
-
-      case "general":
-
-        agentResult =
-          await generalNode({
-            ...state,
-
-            question,
-
-            route,
-          });
-
-        break;
-    }
-
-    results.push({
-      question,
-
-      route,
-
-      response:
-        typeof agentResult.response ===
-        "string"
-          ? agentResult.response
-          : JSON.stringify(
-              agentResult.response
-            ),
-
-      sources:
-        agentResult.sources ?? [],
-    });
-  }
+        response:
+          typeof agentResult.response === "string"
+            ? agentResult.response
+            : JSON.stringify(agentResult.response),
+        sources: agentResult.sources ?? [],
+      };
+    })
+  );
 
   return {
     questionResults:

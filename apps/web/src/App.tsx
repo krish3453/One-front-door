@@ -13,6 +13,8 @@ import {
   streamChatMessage,
   getCurrentUser,
   logout,
+  getConversations,
+  getConversation,
   type AuthUser,
 } from "./services/api";
 
@@ -48,6 +50,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [streamingSteps, setStreamingSteps] = useState<AgentExecutionStep[]>([]);
   const [conversationId, setConversationId] = useState<string | undefined>(undefined);
+  const [conversations, setConversations] = useState<any[]>([]);
   const [expandedTraceId, setExpandedTraceId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -73,6 +76,15 @@ function App() {
         const authData = await getCurrentUser();
         if (authData.authenticated && authData.user) {
           setUser(authData.user);
+          
+          try {
+            const hist = await getConversations();
+            if (hist && hist.conversations) {
+              setConversations(hist.conversations);
+            }
+          } catch (historyErr) {
+            console.error("Failed to fetch history on auth check:", historyErr);
+          }
         }
       } catch (err) {
         console.warn("[App] Auth status check:", err);
@@ -99,6 +111,7 @@ function App() {
       setUser(null);
       setMessages([]);
       setConversationId(undefined);
+      setConversations([]);
       setInput("");
       setLoggingOut(false);
     }
@@ -255,6 +268,13 @@ function App() {
                   : msg
               )
             );
+            
+            // Refresh conversation history in sidebar
+            getConversations().then((res) => {
+              if (res && res.conversations) {
+                setConversations(res.conversations);
+              }
+            }).catch(console.error);
           },
 
           onError: (errMsg) => {
@@ -457,20 +477,36 @@ function App() {
         <div className="sidebar-nav-section sidebar-history-section">
           <span className="sidebar-section-label">CHATS</span>
           <div className="sidebar-history-list">
-            {messages.length > 0 ? (
-              <button
-                type="button"
-                className="sidebar-history-item active"
-                onClick={() => { }}
-                title={messages[0]?.content || "Current Conversation"}
-              >
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                </svg>
-                <span className="truncate">
-                  {messages.find((m) => m.role === "user")?.content || "Current Session"}
-                </span>
-              </button>
+            {conversations.length > 0 ? (
+              conversations.map((conv) => (
+                <button
+                  key={conv.id}
+                  type="button"
+                  className={`sidebar-history-item ${conv.id === conversationId ? "active" : ""}`}
+                  onClick={async () => {
+                    try {
+                      setLoading(true);
+                      const res = await getConversation(conv.id);
+                      if (res && res.conversation) {
+                        setConversationId(res.conversation.id);
+                        setMessages(res.conversation.messages || []);
+                      }
+                    } catch (err) {
+                      console.error("Failed to load conversation", err);
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                  title={conv.title || "Untitled Chat"}
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                  </svg>
+                  <span className="truncate">
+                    {conv.title || "Untitled Chat"}
+                  </span>
+                </button>
+              ))
             ) : (
               <div className="sidebar-empty-history">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
